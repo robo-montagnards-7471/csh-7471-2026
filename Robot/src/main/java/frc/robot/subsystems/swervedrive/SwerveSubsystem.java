@@ -109,7 +109,7 @@ public class SwerveSubsystem extends SubsystemBase
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
-    setupPathPlanner();
+    // setupPathPlanner();
   }
 
   /**
@@ -321,16 +321,16 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public Command driveWithSetpointGeneratorFieldRelative(Supplier<ChassisSpeeds> fieldRelativeSpeeds)
   {
-    try
-    {
-      return driveWithSetpointGenerator(() -> {
-        return ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeSpeeds.get(), getHeading());
+    // try
+    // {
+    //   return driveWithSetpointGenerator(() -> {
+    //     return ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeSpeeds.get(), getHeading());
 
-      });
-    } catch (Exception e)
-    {
-      DriverStation.reportError(e.toString(), true);
-    }
+    //   });
+    // } catch (Exception e)
+    // {
+    //   DriverStation.reportError(e.toString(), true);
+    // }
     return Commands.none();
 
   }
