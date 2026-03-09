@@ -1,8 +1,15 @@
 package frc.robot;
 
-// FIXME: Est ce que c'est bon comme ça ou on ferait une instance de la classe ?
 public class Config {
-    public static double robot_width = 1; // donnée hypotétique, en m
-    public static double robot_lenght = 1; // donnée hypotétique, en m
-    public static double robot_height = 0.5; // donnée hypotétique, en m
+
+    // CAN BUS
+    // Swerve
+    public static double front_left_port_drive  = 1;
+    public static double front_left_port_steer  = 5;
+    public static double front_right_port_drive = 2;
+    public static double front_right_port_steer = 6;
+    public static double back_left_port_drive   = 10;
+    public static double back_left_port_steer   = 7;
+    public static double back_right_port_drive  = 11;
+    public static double back_right_port_steer  = 8;
 }
