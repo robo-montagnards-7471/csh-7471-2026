@@ -7,6 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.components.Controller;
+import frc.robot.components.Intake;
+import frc.robot.Config;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -19,6 +22,9 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  private final Controller controller;
+  private final Intake intake;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -27,6 +33,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    controller = new Controller();
+    intake = new Intake();
   }
 
   /**
@@ -76,7 +85,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // intake
+    boolean toggle_intake_in = controller.toggleIntakeIn();
+    boolean toggle_intake_out = controller.toggleIntakeOut();
+    intake.poll( toggle_intake_in, toggle_intake_out );
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
