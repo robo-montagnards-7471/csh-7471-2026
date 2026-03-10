@@ -7,12 +7,12 @@ import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
 
 public class Launcher {
-    boolean is_output_active;
+    private boolean is_output_active;
     boolean is_input_active;
 
-    SparkFlex output_motor_leader;
-    SparkFlex output_motor_follower;
-    SparkMax input_motor;
+    private SparkFlex output_motor_leader;
+    private SparkFlex output_motor_follower;
+    private SparkMax input_motor;
 
     public Launcher() {
         is_output_active = true;
