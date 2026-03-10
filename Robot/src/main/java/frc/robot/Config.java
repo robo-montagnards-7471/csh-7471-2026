@@ -12,7 +12,7 @@ public class Config {
 
     // CAN BUS port
     // Launcher
-    public static int launcher_output_leader = 9;
+    public static int launcher_output_leader = 13;
     public static int launcher_output_follower = 12;
-    public static int launcher_input = 13;
+    public static int launcher_input = 9;
 }
