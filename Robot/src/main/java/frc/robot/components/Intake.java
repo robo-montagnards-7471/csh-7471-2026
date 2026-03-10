@@ -2,7 +2,7 @@ package frc.robot.components;
 
 import com.revrobotics.spark.SparkMax;
 
-import javax.lang.model.util.ElementScanner14;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
@@ -18,6 +18,8 @@ public class Intake {
         is_out = false;
 
         motor = new SparkMax( Config.intake, SparkLowLevel.MotorType.kBrushless );
+
+        SmartDashboard.putNumber("Intake Speed", motor.get());
     }
 
     public void poll( boolean in_toggle, boolean out_toggle ) {
@@ -39,5 +41,6 @@ public class Intake {
         else {
             motor.set( 0 );
         }
+        SmartDashboard.putNumber("Intake Speed", motor.get());
     }
 }

@@ -2,6 +2,7 @@ package frc.robot.components;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.data.StickPosition;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Controller {
     // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe

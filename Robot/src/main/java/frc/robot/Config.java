@@ -9,5 +9,5 @@ public class Config {
 
     // CAN BUS port
     // Intake
-    public static int intake = 14;
+    public static int intake = 9;
 }
