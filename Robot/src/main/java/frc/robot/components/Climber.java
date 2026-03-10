@@ -2,7 +2,7 @@ package frc.robot.components;
 
 import com.revrobotics.spark.SparkMax;
 
-import javax.lang.model.util.ElementScanner14;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
@@ -18,6 +18,8 @@ public class Climber {
         is_up = false;
 
         motor = new SparkMax( Config.climber, SparkLowLevel.MotorType.kBrushless );
+
+        SmartDashboard.putNumber("Climber Speed", motor.get());
     }
 
     public void poll( boolean climb_up, boolean climb_down ) {
@@ -37,11 +39,13 @@ public class Climber {
         if( is_up ) {
             motor.set( Config.climb_up );
         }
-        else if ( climb_down ) {
+        else if( is_down ) {
             motor.set( Config.climb_down );
         }
         else {
             motor.set( 0 );
         }
+
+        SmartDashboard.putNumber("Climber Speed", motor.get());
     }
 }

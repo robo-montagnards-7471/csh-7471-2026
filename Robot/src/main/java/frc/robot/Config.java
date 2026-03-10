@@ -9,5 +9,6 @@ public class Config {
 
     // CAN BUS port
     // Climber
-    public static int climber = 15;
+    public static int climber = 9;
+    // public static int climber = 15;
 }
