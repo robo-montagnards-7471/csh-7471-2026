@@ -1,7 +1,7 @@
 package frc.robot.components;
 
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
+// import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
