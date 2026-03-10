@@ -11,7 +11,7 @@ public class Controller {
 
     private double last_right_bumper_state;
 
-    Controller() {
+    public Controller() {
         last_right_bumper_state = xbox_controller.getRightTriggerAxis();
     }
 
