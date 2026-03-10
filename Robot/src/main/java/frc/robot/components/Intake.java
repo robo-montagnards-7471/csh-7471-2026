@@ -1,6 +1,9 @@
 package frc.robot.components;
 
 import com.revrobotics.spark.SparkMax;
+
+import javax.lang.model.util.ElementScanner14;
+
 import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
 
@@ -30,8 +33,11 @@ public class Intake {
         if( is_in ) {
             motor.set( Config.in );
         }
-        if( is_out ) {
+        else if( is_out ) {
             motor.set( Config.out );
+        }
+        else {
+            motor.set( 0 );
         }
     }
 }
