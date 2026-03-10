@@ -14,7 +14,7 @@ public class Launcher {
     SparkFlex output_motor_follower;
     SparkMax input_motor;
 
-    Launcher() {
+    public Launcher() {
         is_output_active = true;
         is_input_active = true;
         output_motor_leader = new SparkFlex( Config.launcher_output_leader, SparkLowLevel.MotorType.kBrushless );
