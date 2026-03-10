@@ -6,7 +6,7 @@ import frc.robot.data.StickPosition;
 public class Controller {
     // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe
     final static XboxController xbox_controller = new XboxController(0);
-    Controller() {}
+    public Controller() {}
 
     public static XboxController getController() {
         return xbox_controller;
