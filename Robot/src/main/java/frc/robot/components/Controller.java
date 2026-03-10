@@ -1,21 +1,21 @@
 package frc.robot.components;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.data.StickPosition;
 import frc.robot.Config;
 
 public class Controller {
     // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe
-    final static CommandXboxController xbox_controller = new CommandXboxController(0);
+    final static XboxController xbox_controller = new XboxController(0);
 
-    private double bumper_sensitivity;
+    private double last_right_bumper_state;
 
     Controller() {
-        bumper_sensitivity = Config.bumper_sensitivity;
+        last_right_bumper_state = xbox_controller.getRightTriggerAxis();
     }
 
-    public static CommandXboxController getController() {
+    public static XboxController getController() {
         return xbox_controller;
     }
 
@@ -27,12 +27,18 @@ public class Controller {
         return new StickPosition( xbox_controller.getRightX(), xbox_controller.getRightY() );
     }
 
-    public boolean getLauncherToggle() {
+    public boolean getLauncherOutputToggle() {
         double right_bumper_state = xbox_controller.getRightTriggerAxis();
-        if( right_bumper_state > bumper_sensitivity ) {
-            return true;
+        boolean toggle = false;
+        if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
+            toggle = true;
         }
-        return false;
+        last_right_bumper_state = right_bumper_state;
+        return toggle;
+    }
+
+    public boolean getLauncherInputToggle() {
+        return xbox_controller.getXButtonPressed();
     }
 }
  
