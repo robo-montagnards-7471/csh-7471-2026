@@ -1,6 +1,8 @@
 package frc.robot;
 
 public class Config {
+    // Controller settings
+    public static int controller_port = 0;
 
     // CAN BUS port
     // Swerve
