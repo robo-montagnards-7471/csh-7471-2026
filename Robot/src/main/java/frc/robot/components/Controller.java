@@ -6,11 +6,11 @@ import frc.robot.data.StickPosition;
 
 public class Controller {
     // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe
-    final static CommandXboxController xbox_controller = new CommandXboxController(0);
-    Controller() {}
+    final static XboxController xbox_controller = new XboxController(0);
+    public Controller() {}
 
     public static CommandXboxController getController() {
-        return xbox_controller;
+        return new CommandXboxController( xbox_controller.getPort() );
     }
 
     public StickPosition getLeftStickPosition() {
@@ -20,4 +20,8 @@ public class Controller {
     public StickPosition getRightStickPosition() {
         return new StickPosition( xbox_controller.getRightX(), xbox_controller.getRightY() );
     }
+
+    public boolean getAButton() { // Example
+        return xbox_controller.getAButton();
+    } 
 }
