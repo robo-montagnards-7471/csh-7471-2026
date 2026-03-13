@@ -9,13 +9,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.components.Controller;
 import frc.robot.components.Intake;
+import frc.robot.components.Shooter;
 import frc.robot.Config;
 
 /**
- * The methods in this class are called automatically corresponding to each mode, as described in
- * the TimedRobot documentation. If you change the name of this class or the package after creating
- * this project, you must also update the Main.java file in the project.
- */
+* The methods in this class are called automatically corresponding to each mode, as described in
+* the TimedRobot documentation. If you change the name of this class or the package after creating
+* this project, you must also update the Main.java file in the project.
+*/
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
@@ -24,6 +25,7 @@ public class Robot extends TimedRobot {
 
   private final Controller controller;
   private final Intake intake;
+  private final Shooter shooter;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,6 +38,7 @@ public class Robot extends TimedRobot {
 
     controller = new Controller();
     intake = new Intake();
+    shooter = new Shooter();
   }
 
   /**
@@ -90,6 +93,11 @@ public class Robot extends TimedRobot {
     boolean toggle_intake_in = controller.toggleIntakeIn();
     boolean toggle_intake_out = controller.toggleIntakeOut();
     intake.poll( toggle_intake_in, toggle_intake_out );
+    // shooter
+    boolean toggle_shooter_input = controller.getShooterInputToggle();
+    boolean toggle_shooter_output = controller.getShooterOutputToggle();
+    SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
+    shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
 
   /** This function is called once when the robot is disabled. */
@@ -116,3 +124,4 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {}
 }
+ 

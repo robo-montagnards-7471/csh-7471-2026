@@ -56,7 +56,7 @@ public class Shooter {
             is_output_active = !is_output_active;
         }
 
-        
+
         if( is_output_active ) {
             setOutputMotors( Config.shooter_output_power );
         }
@@ -75,3 +75,4 @@ public class Shooter {
         SmartDashboard.putBoolean( "Shooter Input State", is_input_active );
     }
 }
+ 
