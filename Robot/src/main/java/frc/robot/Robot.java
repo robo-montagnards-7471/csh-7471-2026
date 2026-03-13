@@ -11,21 +11,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.components.Controller;
 import frc.robot.components.Climber;
+import frc.robot.components.Intake;
+import frc.robot.components.Shooter;
 import frc.robot.Config;
 
 /**
- * The methods in this class are called automatically corresponding to each mode, as described in
- * the TimedRobot documentation. If you change the name of this class or the package after creating
- * this project, you must also update the Main.java file in the project.
- */
+* The methods in this class are called automatically corresponding to each mode, as described in
+* the TimedRobot documentation. If you change the name of this class or the package after creating
+* this project, you must also update the Main.java file in the project.
+*/
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  Controller controller;
-  Climber climber;
+  private final Controller controller;
+  private final Climber climber;
+  private final Intake intake;
+  private final Shooter shooter;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,8 +40,10 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    climber = new Climber();
     controller = new Controller();
+    climber = new Climber();
+    intake = new Intake();
+    shooter = new Shooter();
   }
 
   /**
@@ -88,9 +94,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    // climber
     boolean climb_up = controller.climbUp();
     boolean climb_down = controller.climbDown();
     climber.poll(climb_up, climb_down);
+    // intake
+    boolean toggle_intake_in = controller.toggleIntakeIn();
+    boolean toggle_intake_out = controller.toggleIntakeOut();
+    intake.poll( toggle_intake_in, toggle_intake_out );
+    // shooter
+    boolean toggle_shooter_input = controller.getShooterInputToggle();
+    boolean toggle_shooter_output = controller.getShooterOutputToggle();
+    SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
+    shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
 
   /** This function is called once when the robot is disabled. */
@@ -117,3 +133,4 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {}
 }
+ 

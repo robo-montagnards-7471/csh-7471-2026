@@ -2,15 +2,23 @@ package frc.robot.components;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.data.StickPosition;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Config;
 
 import frc.robot.Config;
 
 public class Controller {
+  
     final static XboxController xbox_controller = new XboxController( Config.controller_port );
+
+    private double last_right_bumper_state;
+
     public Controller() {
         SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
         SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
+        last_right_bumper_state = xbox_controller.getRightTriggerAxis();
     }
 
     public static XboxController getController() {
@@ -33,6 +41,28 @@ public class Controller {
     public boolean climbDown() {
         SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
         return xbox_controller.getLeftBumperButton();
+    public boolean toggleIntakeIn() {
+        return xbox_controller.getAButtonPressed();
+    }
+
+    public boolean toggleIntakeOut() {
+        return xbox_controller.getBButtonPressed();
+    }
+
+    public boolean getShooterOutputToggle() {
+        double right_bumper_state = xbox_controller.getRightTriggerAxis();
+        boolean toggle = false;
+        if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
+            toggle = true;
+        }
+        last_right_bumper_state = right_bumper_state;
+        return toggle;
+    }
+
+    public boolean getShooterInputToggle() {
+        boolean toggle = xbox_controller.getXButtonPressed();
+        SmartDashboard.putBoolean("Toggle Shooter input", toggle);
+        return toggle;
     }
 }
  
