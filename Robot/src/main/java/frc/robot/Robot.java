@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import java.util.ResourceBundle.Control;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.components.Controller;
+import frc.robot.components.Climber;
 import frc.robot.components.Intake;
 import frc.robot.components.Shooter;
 import frc.robot.Config;
@@ -24,6 +27,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private final Controller controller;
+  private final Climber climber;
   private final Intake intake;
   private final Shooter shooter;
 
@@ -37,6 +41,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     controller = new Controller();
+    climber = new Climber();
     intake = new Intake();
     shooter = new Shooter();
   }
@@ -89,6 +94,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    // climber
+    boolean climb_up = controller.climbUp();
+    boolean climb_down = controller.climbDown();
+    climber.poll(climb_up, climb_down);
     // intake
     boolean toggle_intake_in = controller.toggleIntakeIn();
     boolean toggle_intake_out = controller.toggleIntakeOut();

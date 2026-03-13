@@ -11,6 +11,9 @@ public class Config {
     public static double P = 1.17;
     public static double I = 1.03;
     public static double D = 0.1;
+    // Climber
+    public static double climb_up = 1;
+    public static double climb_down = -1;
     // Intake
     public static double in = 1;
     public static double out = -1;
@@ -22,6 +25,8 @@ public class Config {
     public static boolean shooter_input_start_state = false; // true is running
 
     // CAN BUS port
+    // Climber
+    public static int climber = 9;
     // Intake
     public static int intake = 9;
     // Launcher

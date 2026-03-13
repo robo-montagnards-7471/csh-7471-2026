@@ -1,18 +1,22 @@
 package frc.robot.components;
 
 import edu.wpi.first.wpilibj.XboxController;
-// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.data.StickPosition;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 
+import frc.robot.Config;
+
 public class Controller {
-    // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe
+  
     final static XboxController xbox_controller = new XboxController( Config.controller_port );
 
     private double last_right_bumper_state;
 
     public Controller() {
+        SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
+        SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
         last_right_bumper_state = xbox_controller.getRightTriggerAxis();
     }
 
@@ -28,6 +32,16 @@ public class Controller {
         return new StickPosition( xbox_controller.getRightX(), xbox_controller.getRightY() );
     }
 
+    public boolean climbUp() {
+        SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
+        return xbox_controller.getRightBumperButton();
+    }
+    
+    public boolean climbDown() {
+        SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
+        return xbox_controller.getLeftBumperButton();
+    }
+    
     public boolean toggleIntakeIn() {
         return xbox_controller.getAButtonPressed();
     }
@@ -52,4 +66,3 @@ public class Controller {
         return toggle;
     }
 }
- 
