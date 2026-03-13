@@ -7,7 +7,7 @@ import frc.robot.Config;
 
 public class Controller {
     // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe
-    final static XboxController xbox_controller = new XboxController( 0 );
+    final static XboxController xbox_controller = new XboxController( Config.controller_port );
 
     private double last_right_bumper_state;
 
@@ -41,4 +41,3 @@ public class Controller {
         return xbox_controller.getXButtonPressed();
     }
 }
- 
