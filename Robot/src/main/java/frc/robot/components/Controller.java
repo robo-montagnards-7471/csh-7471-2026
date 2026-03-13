@@ -35,20 +35,4 @@ public class Controller {
     public boolean toggleIntakeOut() {
         return xbox_controller.getBButtonPressed();
     }
- 
-    public boolean getShooterOutputToggle() {
-        double right_bumper_state = xbox_controller.getRightTriggerAxis();
-        boolean toggle = false;
-        if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
-            toggle = true;
-        }
-        last_right_bumper_state = right_bumper_state;
-        return toggle;
-    }
-
-    public boolean getShooterInputToggle() {
-        boolean toggle = xbox_controller.getXButtonPressed();
-        SmartDashboard.putBoolean("Toggle Shooter input", toggle);
-        return toggle;
-    }
 }
