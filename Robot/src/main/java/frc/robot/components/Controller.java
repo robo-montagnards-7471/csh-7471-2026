@@ -41,6 +41,8 @@ public class Controller {
     public boolean climbDown() {
         SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
         return xbox_controller.getLeftBumperButton();
+    }
+    
     public boolean toggleIntakeIn() {
         return xbox_controller.getAButtonPressed();
     }
