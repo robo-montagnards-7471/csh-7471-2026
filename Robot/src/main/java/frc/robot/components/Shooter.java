@@ -21,36 +21,34 @@ public class Shooter {
 
 
     public Shooter() {
-        is_output_active = true;
-        is_input_active = false;
+        is_output_active = Config.shooter_output_start_state;
+        is_input_active = Config.shooter_input_start_state;
         output_motor_leader = new SparkFlex( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
+        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
+
         if( Config.has_follower ) {
             output_motor_follower = new SparkFlex( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
-        }
-        input_motor = new SparkMax( Config.shooter_input, SparkLowLevel.MotorType.kBrushless );
-        
-        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
-        if( Config.has_follower ) {
             SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
         }
-        SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
 
+        input_motor = new SparkMax( Config.shooter_input, SparkLowLevel.MotorType.kBrushless );
+        SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
     }
 
     private void setOutputMotors( double destination ) {
         double output_leader_voltage = destination;
         output_motor_leader.set( output_leader_voltage );
+        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
+
         if( Config.has_follower ) {
             double output_follower_voltage =  -destination;
             output_motor_follower.set( output_follower_voltage );
             SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
-            SmartDashboard.putNumber( "Shooter Follower Target", -destination );
         }
-        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
-        SmartDashboard.putNumber( "Shooter Leader Target", destination );
     }
 
     public void poll( boolean toggle_input, boolean toggle_output ) {
+        SmartDashboard.putBoolean("toggle_input", toggle_input);
         if( toggle_input ) {
             is_input_active = !is_input_active;
         }
@@ -68,13 +66,12 @@ public class Shooter {
 
         if( is_input_active ) {
             input_motor.set( Config.shooter_input );
-            SmartDashboard.putNumber( "Shooter Input Target", Config.shooter_input );
         }
         else {
             input_motor.set( 0 );
-            SmartDashboard.putNumber( "Shooter Input Target", 0 );
         }
 
         SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
+        SmartDashboard.putBoolean( "Shooter Input State", is_input_active );
     }
 }

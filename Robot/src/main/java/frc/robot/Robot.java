@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.util.datalog.BooleanLogEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -90,6 +89,7 @@ public class Robot extends TimedRobot {
     // shooter
     boolean toggle_shooter_input = controller.getShooterInputToggle();
     boolean toggle_shooter_output = controller.getShooterOutputToggle();
+    SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
     shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
 
