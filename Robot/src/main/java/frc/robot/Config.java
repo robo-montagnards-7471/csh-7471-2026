@@ -7,9 +7,15 @@ public class Config {
     public static double bumper_sensitivity = 0.5; // 0 is not pressed and 1 is fully pressed
 
     // Motors configuration
+    // PID
+    public static double P = 1.17;
+    public static double I = 1.03;
+    public static double D = 0.1;
+    
     // Launcher
     public static double shooter_output_power = 1; // 1 is full speed, -1 is full speed other direction
     public static double shooter_input_power = 0.75; // 1 is full speed, -1 is full speed other direction
+    public static boolean has_follower = false;
 
     // CAN BUS port
     // Launcher
