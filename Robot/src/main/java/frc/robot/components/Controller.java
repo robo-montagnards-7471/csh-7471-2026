@@ -3,10 +3,11 @@ package frc.robot.components;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.data.StickPosition;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Config;
 
 public class Controller {
     // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe
-    final static XboxController xbox_controller = new XboxController(0);
+    final static XboxController xbox_controller = new XboxController( Config.controller_port );
     public Controller() {}
 
     public static XboxController getController() {
