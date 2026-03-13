@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.components.Controller;
-import frc.robot.components.Launcher;
+import frc.robot.components.Shooter;
 import frc.robot.Config;
 
 /**
@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private final Controller controller;
-  private final Launcher launcher;
+  private final Shooter shooter;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     controller = new Controller();
-    launcher = new Launcher();
+    shooter = new Shooter();
   }
 
   /**
@@ -87,10 +87,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    // launcher
-    boolean toggle_launcher_input = controller.getLauncherInputToggle();
-    boolean toggle_launcher_output = controller.getLauncherOutputToggle();
-    launcher.poll(toggle_launcher_input, toggle_launcher_output);
+    // shooter
+    boolean toggle_shooter_input = controller.getShooterInputToggle();
+    boolean toggle_shooter_output = controller.getShooterOutputToggle();
+    shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
 
   /** This function is called once when the robot is disabled. */
