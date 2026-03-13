@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.data.StickPosition;
 
+import frc.robot.Config;
+
 public class Controller {
-    final static XboxController xbox_controller = new XboxController(0);
+    final static XboxController xbox_controller = new XboxController( Config.controller_port );
     public Controller() {
         SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
         SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
