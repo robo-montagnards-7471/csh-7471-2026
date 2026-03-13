@@ -3,6 +3,7 @@ package frc.robot.components;
 import edu.wpi.first.wpilibj.XboxController;
 // import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.data.StickPosition;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 
 public class Controller {
@@ -38,6 +39,7 @@ public class Controller {
     }
 
     public boolean getShooterInputToggle() {
+        SmartDashboard.putBoolean("Toggle Shooter input", xbox_controller.getXButtonPressed());
         return xbox_controller.getXButtonPressed();
     }
 }
