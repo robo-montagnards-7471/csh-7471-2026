@@ -3,7 +3,7 @@ package frc.robot.components;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.math.controller.PIDController;
 import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
 
@@ -13,11 +13,15 @@ public class Intake {
 
     private SparkMax motor;
 
+    private PIDController intake_pid;
+
     public Intake() {
         is_in = false;
         is_out = false;
 
         motor = new SparkMax( Config.intake, SparkLowLevel.MotorType.kBrushless );
+
+        intake_pid = new PIDController(1.09, 1.02, 0.06);
 
         SmartDashboard.putNumber("Intake Speed", motor.get());
     }
@@ -33,13 +37,13 @@ public class Intake {
         }
 
         if( is_in ) {
-            motor.set( Config.in );
+            motor.set( intake_pid.calculate( motor.get(), Config.in ) );
         }
         else if( is_out ) {
-            motor.set( Config.out );
+            motor.set( intake_pid.calculate( motor.get(), Config.out ) );
         }
         else {
-            motor.set( 0 );
+            motor.set( intake_pid.calculate( motor.get(), 0 ) );
         }
         SmartDashboard.putNumber("Intake Speed", motor.get());
     }
