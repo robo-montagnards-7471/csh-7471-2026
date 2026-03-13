@@ -23,6 +23,7 @@ public class Shooter {
 
     private PIDController pid_leader_controller;
     private PIDController pid_follower_controller;
+    private PIDController pid_input_controller;
 
     public Shooter() {
         is_output_active = true;
@@ -37,11 +38,12 @@ public class Shooter {
 
         pid_leader_controller = new PIDController(1.09, 1.02, 0.06);
         pid_follower_controller = new PIDController(1.09, 1.02, 0.06);
+        pid_input_controller = new PIDController(1.09, 1.02, 0.06);
     }
 
     private void setOutputMotors( double destination ) {
         double output_leader_voltage = pid_leader_controller.calculate( output_motor_leader.get(), destination);
-        double output_follower_voltage = pid_leader_controller.calculate( output_motor_follower.get(), -destination);
+        double output_follower_voltage = pid_follower_controller.calculate( output_motor_follower.get(), -destination);
 
         output_motor_leader.set( output_leader_voltage );
         output_motor_follower.set( output_follower_voltage );
@@ -64,10 +66,10 @@ public class Shooter {
         }
 
         if( is_input_active ) {
-            input_motor.set( Config.shooter_input );
+            input_motor.set( pid_input_controller.calculate( input_motor.get(), Config.shooter_input )  );
         }
         else {
-            input_motor.set( 0 );
+            input_motor.set( pid_input_controller.calculate( input_motor.get(), 0 ) );
         }
 
         SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
