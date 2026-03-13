@@ -39,7 +39,8 @@ public class Controller {
     }
 
     public boolean getShooterInputToggle() {
-        SmartDashboard.putBoolean("Toggle Shooter input", xbox_controller.getXButtonPressed());
-        return xbox_controller.getXButtonPressed();
+        boolean toggle = xbox_controller.getXButtonPressed();
+        SmartDashboard.putBoolean("Toggle Shooter input", toggle);
+        return toggle;
     }
 }
