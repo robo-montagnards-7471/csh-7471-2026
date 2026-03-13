@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
     boolean toggle_intake_out = controller.toggleIntakeOut();
     intake.poll( toggle_intake_in, toggle_intake_out );
   }
- 
+
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {}
