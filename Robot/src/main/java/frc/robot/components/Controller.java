@@ -20,8 +20,4 @@ public class Controller {
     public StickPosition getRightStickPosition() {
         return new StickPosition( xbox_controller.getRightX(), xbox_controller.getRightY() );
     }
-
-    public boolean getAButton() { // Example
-        return xbox_controller.getAButton();
-    } 
 }
