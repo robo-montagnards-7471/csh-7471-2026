@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
     shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
-
+ 
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {}
