@@ -2,14 +2,12 @@ package frc.robot.components;
 
 import com.revrobotics.spark.SparkMax;
 
-import javax.print.attribute.standard.Destination;
 
 // import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
 
-import edu.wpi.first.math.controller.PIDController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,32 +19,35 @@ public class Shooter {
     private SparkFlex output_motor_follower;
     private SparkMax input_motor;
 
-    private PIDController pid_leader_controller;
-    private PIDController pid_follower_controller;
-    private PIDController pid_input_controller;
 
     public Shooter() {
         is_output_active = true;
         is_input_active = false;
         output_motor_leader = new SparkFlex( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
-        output_motor_follower = new SparkFlex( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
+        if( Config.has_follower ) {
+            output_motor_follower = new SparkFlex( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
+        }
         input_motor = new SparkMax( Config.shooter_input, SparkLowLevel.MotorType.kBrushless );
         
         SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
-        SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
+        if( Config.has_follower ) {
+            SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
+        }
         SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
 
-        pid_leader_controller = new PIDController(1.09, 1.02, 0.06);
-        pid_follower_controller = new PIDController(1.09, 1.02, 0.06);
-        pid_input_controller = new PIDController(1.09, 1.02, 0.06);
     }
 
     private void setOutputMotors( double destination ) {
-        double output_leader_voltage = pid_leader_controller.calculate( output_motor_leader.get(), destination);
-        double output_follower_voltage = pid_follower_controller.calculate( output_motor_follower.get(), -destination);
-
+        double output_leader_voltage = destination;
         output_motor_leader.set( output_leader_voltage );
-        output_motor_follower.set( output_follower_voltage );
+        if( Config.has_follower ) {
+            double output_follower_voltage =  -destination;
+            output_motor_follower.set( output_follower_voltage );
+            SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
+            SmartDashboard.putNumber( "Shooter Follower Target", -destination );
+        }
+        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
+        SmartDashboard.putNumber( "Shooter Leader Target", destination );
     }
 
     public void poll( boolean toggle_input, boolean toggle_output ) {
@@ -66,14 +67,14 @@ public class Shooter {
         }
 
         if( is_input_active ) {
-            input_motor.set( pid_input_controller.calculate( input_motor.get(), Config.shooter_input )  );
+            input_motor.set( Config.shooter_input );
+            SmartDashboard.putNumber( "Shooter Input Target", Config.shooter_input );
         }
         else {
-            input_motor.set( pid_input_controller.calculate( input_motor.get(), 0 ) );
+            input_motor.set( 0 );
+            SmartDashboard.putNumber( "Shooter Input Target", 0 );
         }
 
-        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
-        SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
         SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
     }
 }
