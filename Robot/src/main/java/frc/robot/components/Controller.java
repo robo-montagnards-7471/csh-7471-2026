@@ -7,7 +7,7 @@ import frc.robot.Config;
 
 public class Controller {
     // TODO: mettre les bonnes affaires ici, une fois la manette décidé et accepté par l'équipe
-    final static XboxController xbox_controller = new XboxController(0);
+    final static XboxController xbox_controller = new XboxController( 0 );
 
     private double last_right_bumper_state;
 
@@ -27,7 +27,7 @@ public class Controller {
         return new StickPosition( xbox_controller.getRightX(), xbox_controller.getRightY() );
     }
 
-    public boolean getLauncherOutputToggle() {
+    public boolean getShooterOutputToggle() {
         double right_bumper_state = xbox_controller.getRightTriggerAxis();
         boolean toggle = false;
         if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
@@ -37,7 +37,7 @@ public class Controller {
         return toggle;
     }
 
-    public boolean getLauncherInputToggle() {
+    public boolean getShooterInputToggle() {
         return xbox_controller.getXButtonPressed();
     }
 }

@@ -13,7 +13,7 @@ import edu.wpi.first.math.controller.PIDController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Launcher {
+public class Shooter {
     private boolean is_output_active;
     boolean is_input_active;
 
@@ -24,16 +24,16 @@ public class Launcher {
     private PIDController pid_leader_controller;
     private PIDController pid_follower_controller;
 
-    public Launcher() {
+    public Shooter() {
         is_output_active = true;
         is_input_active = false;
-        output_motor_leader = new SparkFlex( Config.launcher_output_leader, SparkLowLevel.MotorType.kBrushless );
-        output_motor_follower = new SparkFlex( Config.launcher_output_follower, SparkLowLevel.MotorType.kBrushless );
-        input_motor = new SparkMax( Config.launcher_input, SparkLowLevel.MotorType.kBrushless );
+        output_motor_leader = new SparkFlex( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
+        output_motor_follower = new SparkFlex( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
+        input_motor = new SparkMax( Config.shooter_input, SparkLowLevel.MotorType.kBrushless );
         
-        SmartDashboard.putNumber( "Launcher Leader", output_motor_leader.get() );
-        SmartDashboard.putNumber("Launcher Follower", output_motor_follower.get());
-        SmartDashboard.putNumber( "Launcher Input", input_motor.get() );
+        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
+        SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
+        SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
 
         pid_leader_controller = new PIDController(1.09, 1.02, 0.06);
         pid_follower_controller = new PIDController(1.09, 1.02, 0.06);
@@ -57,21 +57,21 @@ public class Launcher {
 
         
         if( is_output_active ) {
-            setOutputMotors( Config.launcher_output_power );
+            setOutputMotors( Config.shooter_output_power );
         }
         else {
             setOutputMotors( 0 );
         }
 
         if( is_input_active ) {
-            input_motor.set( Config.launcher_input );
+            input_motor.set( Config.shooter_input );
         }
         else {
             input_motor.set( 0 );
         }
 
-        SmartDashboard.putNumber( "Launcher Leader", output_motor_leader.get() );
-        SmartDashboard.putNumber("Launcher Follower", output_motor_follower.get());
-        SmartDashboard.putNumber( "Launcher Input", input_motor.get() );
+        SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
+        SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
+        SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
     }
 }

@@ -7,12 +7,12 @@ public class Config {
 
     // Motors configuration
     // Launcher
-    public static double launcher_output_power = 1; // 1 is full speed, -1 is full speed other direction
-    public static double launcher_input_power = 0.75; // 1 is full speed, -1 is full speed other direction
+    public static double shooter_output_power = 1; // 1 is full speed, -1 is full speed other direction
+    public static double shooter_input_power = 0.75; // 1 is full speed, -1 is full speed other direction
 
     // CAN BUS port
     // Launcher
-    public static int launcher_output_leader = 13;
-    public static int launcher_output_follower = 12;
-    public static int launcher_input = 9;
+    public static int shooter_output_leader = 13;
+    public static int shooter_output_follower = 12;
+    public static int shooter_input = 9;
 }
