@@ -3,7 +3,6 @@
     "front": 12,
     "left": -12
   },
-  "absoluteEncoderOffset": 0,
   "drive": {
     "type": "sparkmax_neo",
     "id": 2,
@@ -15,7 +14,7 @@
     "canbus": null
   },
   "encoder": {
-    "type": "throughbore",
+    "type": "attached",
     "id": 6,
     "canbus": null
   },
@@ -23,5 +22,6 @@
     "drive": false,
     "angle": false
   },
-  "absoluteEncoderInverted": false
+  "absoluteEncoderOffset": 0,
+  "absoluteEncoderInverted": true
 }
