@@ -15,8 +15,8 @@ public class Config {
     public static double climb_up = 1;
     public static double climb_down = -1;
     // Intake
-    public static double in = 1;
-    public static double out = -1;
+    public static double in = 0.35;
+    public static double out = -0.35;
     // Launcher
     public static double shooter_output_power = 1; // 1 is full speed, -1 is full speed other direction
     public static double shooter_input_power = 0.75; // 1 is full speed, -1 is full speed other direction
@@ -26,12 +26,14 @@ public class Config {
 
     // CAN BUS port
     // Climber
-    public static int climber = 9;
+    public static int climber = 15;
     // Intake
-    public static int intake = 9;
+    public static int intake = 13;
     // Launcher
-    public static int shooter_output_leader = 13;
-    public static int shooter_output_follower = 12;
-    public static int shooter_input = 9;
+    public static int shooter_output_leader = 14;
+    public static int shooter_output_follower = 16;
+    public static int shooter_input = 17
+    
+    ;
 }
  

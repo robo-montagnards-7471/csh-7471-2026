@@ -3,9 +3,6 @@ package frc.robot.components;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.data.StickPosition;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Config;
-
 import frc.robot.Config;
 
 public class Controller {
