@@ -43,8 +43,6 @@ public class Robot extends TimedRobot
 
   private Timer disabledTimer;
 
-  private Controller controller;
-
   public Robot()
   {
     instance = this;
