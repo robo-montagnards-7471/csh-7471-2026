@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.components.Controller;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -26,9 +28,12 @@ public class Robot extends TimedRobot
 
   private Timer disabledTimer;
 
+  private Controller controller;
+
   public Robot()
   {
     instance = this;
+    controller = new Controller();
   }
 
   public static Robot getInstance()
@@ -144,6 +149,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+    controller.poll();
   }
 
   @Override
