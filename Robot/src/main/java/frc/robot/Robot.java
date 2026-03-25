@@ -5,14 +5,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import java.util.ResourceBundle.Control;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.components.Controller;
+import frc.robot.components.Climber;
+import frc.robot.components.Intake;
+import frc.robot.components.Shooter;
+import frc.robot.Config;
 
 /**
- * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
+* The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
  * described in the TimedRobot documentation. If you change the name of this class or the package after creating this
  * project, you must also update the build.gradle file in the project.
  */
@@ -25,10 +31,29 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
+  
+  private static final String kDefaultAuto = "Default";
+  private static final String kCustomAuto = "My Auto";
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  
+  private final Controller controller;
+  private final Climber climber;
+  private final Intake intake;
+  private final Shooter shooter;
 
   public Robot()
   {
     instance = this;
+    
+    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.addOption("My Auto", kCustomAuto);
+    SmartDashboard.putData("Auto choices", m_chooser);
+
+    controller = new Controller();
+    climber = new Climber();
+    intake = new Intake();
+    shooter = new Shooter();
   }
 
   public static Robot getInstance()
@@ -39,6 +64,7 @@ public class Robot extends TimedRobot
   /**
    * This function is run when the robot is first started up and should be used for any initialization code.
    */
+
   @Override
   public void robotInit()
   {
@@ -118,9 +144,7 @@ public class Robot extends TimedRobot
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic()
-  {
-  }
+  public void autonomousPeriodic() {}
 
   @Override
   public void teleopInit()
@@ -144,6 +168,19 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+    // climber
+    boolean climb_up = controller.climbUp();
+    boolean climb_down = controller.climbDown();
+    climber.poll(climb_up, climb_down);
+    // intake
+    boolean toggle_intake_in = controller.toggleIntakeIn();
+    boolean toggle_intake_out = controller.toggleIntakeOut();
+    intake.poll( toggle_intake_in, toggle_intake_out );
+    // shooter
+    boolean toggle_shooter_input = controller.getShooterInputToggle();
+    boolean toggle_shooter_output = controller.getShooterOutputToggle();
+    SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
+    shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
 
   @Override
@@ -157,9 +194,7 @@ public class Robot extends TimedRobot
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic()
-  {
-  }
+  public void testPeriodic() {}
 
   /**
    * This function is called once when the robot is first started up.
@@ -174,6 +209,5 @@ public class Robot extends TimedRobot
    */
   @Override
   public void simulationPeriodic()
-  {
-  }
+  {}
 }
