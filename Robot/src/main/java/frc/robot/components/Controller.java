@@ -1,13 +1,13 @@
 package frc.robot.components;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.data.StickPosition;
 import frc.robot.Config;
 
 public class Controller {
-  
-    final static XboxController xbox_controller = new XboxController( Config.controller_port );
+    final static XboxController xbox_controller = new XboxController(Config.controller_port);
 
     private double last_right_bumper_state;
 
@@ -16,9 +16,12 @@ public class Controller {
         SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
         last_right_bumper_state = xbox_controller.getRightTriggerAxis();
     }
-
+    
     public static XboxController getController() {
         return xbox_controller;
+    }
+    public static CommandXboxController getCommandController() {
+        return new CommandXboxController( xbox_controller.getPort()
     }
 
     public StickPosition getLeftStickPosition() {
