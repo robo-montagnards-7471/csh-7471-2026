@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.components.Climber;
 import frc.robot.components.Intake;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.components.Shooter;
 import frc.robot.Config;
 
@@ -42,6 +42,8 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
+
+  private Controller controller;
 
   public Robot()
   {
