@@ -4,13 +4,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.data.StickPosition;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import frc.robot.Config;
 
 public class Controller {
     final private static XboxController xbox_controller = new XboxController(Config.controller_port);
-    private double swerve_angle = 0;
     private double last_right_bumper_state;
     
     public Controller() {
@@ -36,27 +33,27 @@ public class Controller {
 
 
     public void poll() {
-        double modifier = xbox_controller.getRightX()*-Config.rotation_speed;
+        // double modifier = xbox_controller.getRightX()*-Config.rotation_speed;
 
-        BigDecimal bd = new BigDecimal(Double.toString(modifier));
-        bd = bd.setScale(1, RoundingMode.HALF_UP);
-        double rounded_modifier = bd.doubleValue();
+        // BigDecimal bd = new BigDecimal(Double.toString(modifier));
+        // bd = bd.setScale(1, RoundingMode.HALF_UP);
+        // double rounded_modifier = bd.doubleValue();
         
-        SmartDashboard.putNumber("Swerve angle", swerve_angle);
-        SmartDashboard.putNumber("Modifier", rounded_modifier);
+        // SmartDashboard.putNumber("Swerve angle", swerve_angle);
+        // SmartDashboard.putNumber("Modifier", rounded_modifier);
         
-        swerve_angle += rounded_modifier;
-        if( swerve_angle > 1 ) {
-            swerve_angle = -1;
-        }
-        else if( swerve_angle < -1 ) {
-            swerve_angle = 1;
-        }
+        // swerve_angle += rounded_modifier;
+        // if( swerve_angle > 1 ) {
+        //     swerve_angle = -1;
+        // }
+        // else if( swerve_angle < -1 ) {
+        //     swerve_angle = 1;
+        // }
     }
 
-    public double getSwerveAngle() {
-        return swerve_angle;
-    }
+    // public double getSwerveAngle() {
+    //     return swerve_angle;
+    // }
 
     public boolean climbUp() {
         SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
@@ -77,12 +74,13 @@ public class Controller {
     }
 
     public boolean getShooterOutputToggle() {
-        double right_bumper_state = xbox_controller.getRightTriggerAxis();
+        double left_bumper_state = xbox_controller.getLeftTriggerAxis();
         boolean toggle = false;
-        if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
+        if( left_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
             toggle = true;
         }
-        last_right_bumper_state = right_bumper_state;
+        last_right_bumper_state = left_bumper_state;
+        SmartDashboard.putBoolean("Toggle Output", toggle);
         return toggle;
     }
 
