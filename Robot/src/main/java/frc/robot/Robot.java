@@ -4,12 +4,18 @@
 
 package frc.robot;
 
+import frc.robot.components.Controller;
 import edu.wpi.first.wpilibj.DriverStation;
+import java.util.ResourceBundle.Control;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.components.Climber;
+import frc.robot.components.Intake;
+import frc.robot.components.Shooter;
+import frc.robot.Config;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -18,6 +24,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot
 {
+  
+  private static final String kDefaultAuto = "Default";
+  private static final String kCustomAuto = "My Auto";
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
+  private final Controller controller;
+  private final Climber climber;
+  private final Intake intake;
+  private final Shooter shooter;
 
   private static Robot   instance;
   private        Command m_autonomousCommand;
@@ -26,9 +42,20 @@ public class Robot extends TimedRobot
 
   private Timer disabledTimer;
 
+  private Controller controller;
+
   public Robot()
   {
     instance = this;
+    
+    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.addOption("My Auto", kCustomAuto);
+    SmartDashboard.putData("Auto choices", m_chooser);
+
+    controller = new Controller();
+    climber = new Climber();
+    intake = new Intake();
+    shooter = new Shooter();
   }
 
   public static Robot getInstance()
@@ -144,6 +171,21 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+    // controller
+    controller.poll();
+    // climber
+    boolean climb_up = controller.climbUp();
+    boolean climb_down = controller.climbDown();
+    climber.poll(climb_up, climb_down);
+    // intake
+    boolean toggle_intake_in = controller.toggleIntakeIn();
+    boolean toggle_intake_out = controller.toggleIntakeOut();
+    intake.poll( toggle_intake_in, toggle_intake_out );
+    // shooter
+    boolean toggle_shooter_input = controller.getShooterInputToggle();
+    boolean toggle_shooter_output = controller.getShooterOutputToggle();
+    SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
+    shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
 
   @Override
