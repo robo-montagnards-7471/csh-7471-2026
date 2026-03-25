@@ -46,8 +46,11 @@ public class Controller {
         SmartDashboard.putNumber("Modifier", rounded_modifier);
         
         swerve_angle += rounded_modifier;
-        if( Math.abs( swerve_angle ) > 1 ) {
-            swerve_angle = swerve_angle%1;
+        if( swerve_angle > 1 ) {
+            swerve_angle = -1;
+        }
+        else if( swerve_angle < -1 ) {
+            swerve_angle = 1;
         }
     }
 

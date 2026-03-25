@@ -53,7 +53,8 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> command_driverxbox.getLeftY() * -1,
                                                                 () -> command_driverxbox.getLeftX() * -1)
-                                                            .withControllerRotationAxis(command_driverxbox::getRightX)
+                                                            // .withControllerRotationAxis(command_driverxbox::getRightX)
+                                                            .withControllerRotationAxis(controller::getSwerveAngle)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -74,6 +75,7 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                         () -> -command_driverxbox.getLeftY(),
                                                                         () -> -command_driverxbox.getLeftX())
+                                                                    // .withControllerRotationAxis(() -> command_driverxbox.getRightX())
                                                                     .withControllerRotationAxis(() -> controller.getSwerveAngle())
                                                                     .deadband(OperatorConstants.DEADBAND)
                                                                     .scaleTranslation(0.8)
@@ -82,12 +84,14 @@ public class RobotContainer
   SwerveInputStream driveDirectAngleKeyboard     = driveAngularVelocityKeyboard.copy()
                                                                                .withControllerHeadingAxis(() ->
                                                                                                               Math.sin(
+                                                                                                                  // command_driverxbox.getRightX() *
                                                                                                                   controller.getSwerveAngle() *
                                                                                                                   Math.PI) *
                                                                                                               (Math.PI *
                                                                                                                2),
                                                                                                           () ->
                                                                                                               Math.cos(
+                                                                                                                  // command_driverxbox.getRightX() *
                                                                                                                   controller.getSwerveAngle() *
                                                                                                                   Math.PI) *
                                                                                                               (Math.PI *

@@ -5,7 +5,7 @@ public class Config {
     public static int controller_port = 0;
     public static double bumper_sensitivity = 0.5; // 0 is not pressed and 1 is fully pressed
     // Swerves
-    public static double rotation_speed = 1;
+    public static double rotation_speed = 0.1;
 
     // Motors configuration
     // PID
