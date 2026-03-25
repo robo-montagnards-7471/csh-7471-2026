@@ -4,7 +4,7 @@ public class Config {
     // Controller settings
     public static int controller_port = 0;
     // Swerves
-    public static double rotation_speed = 1;
+    public static double rotation_speed = 0.1;
 
     // CAN BUS port
     // Swerve
