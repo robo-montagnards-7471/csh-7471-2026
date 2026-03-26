@@ -9,11 +9,13 @@ import frc.robot.Config;
 public class Controller {
     final private static XboxController xbox_controller = new XboxController(Config.controller_port);
     private double last_right_bumper_state;
+    private double last_left_bumper_state;
     
     public Controller() {
         SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
         SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
         last_right_bumper_state = xbox_controller.getRightTriggerAxis();
+        last_left_bumper_state = xbox_controller.getLeftTriggerAxis();
     }
 
     public XboxController getController() {
@@ -79,8 +81,19 @@ public class Controller {
         if( left_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
             toggle = true;
         }
-        last_right_bumper_state = left_bumper_state;
+        last_left_bumper_state = left_bumper_state;
         SmartDashboard.putBoolean("Toggle Output", toggle);
+        return toggle;
+    }
+
+    public boolean getIntakeRemoteToggle() {
+        double right_bumper_state = xbox_controller.getRightTriggerAxis();
+        boolean toggle = false;
+        if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
+            toggle = true;
+        }
+        last_right_bumper_state = right_bumper_state;
+        SmartDashboard.putBoolean("Toggle Remote Intake", toggle);
         return toggle;
     }
 

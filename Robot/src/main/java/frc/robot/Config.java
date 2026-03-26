@@ -16,8 +16,11 @@ public class Config {
     public static double climb_up = 1;
     public static double climb_down = -1;
     // Intake
-    public static double in = 0.35;
-    public static double out = -0.35;
+    public static double in = 0.375;
+    public static double out = -0.375;
+    public static double in_position = 0;
+    public static double out_position = 0;
+    public static double custom_divider = 10; // J'ai pas de nom pour ce truc, c'est pour remplacer les PIDs tout en restant smooth, utilisé pour l'intake pour le remote
     // Launcher
     public static double shooter_output_power = 1; // 1 is full speed, -1 is full speed other direction
     public static double shooter_input_power = 0.75; // 1 is full speed, -1 is full speed other direction
@@ -30,6 +33,7 @@ public class Config {
     public static int climber = 15;
     // Intake
     public static int intake = 13;
+    public static int remote = 18;
     // Launcher
     public static int shooter_output_leader = 14;
     public static int shooter_output_follower = 16;

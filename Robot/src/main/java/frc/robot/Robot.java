@@ -179,7 +179,8 @@ public class Robot extends TimedRobot
     // intake
     boolean toggle_intake_in = controller.toggleIntakeIn();
     boolean toggle_intake_out = controller.toggleIntakeOut();
-    intake.poll( toggle_intake_in, toggle_intake_out );
+    boolean toggle_remote = controller.getIntakeRemoteToggle();
+    intake.poll( toggle_intake_in, toggle_intake_out, toggle_remote );
     // shooter
     boolean toggle_shooter_input = controller.getShooterInputToggle();
     boolean toggle_shooter_output = controller.getShooterOutputToggle();
