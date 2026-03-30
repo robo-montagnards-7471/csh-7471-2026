@@ -4,7 +4,6 @@ import com.revrobotics.spark.SparkMax;
 
 
 // import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import frc.robot.Config;
 
@@ -15,19 +14,19 @@ public class Shooter {
     private boolean is_output_active;
     boolean is_input_active;
 
-    private SparkFlex output_motor_leader;
-    private SparkFlex output_motor_follower;
+    private SparkMax output_motor_leader;
+    private SparkMax output_motor_follower;
     private SparkMax input_motor;
 
 
     public Shooter() {
         is_output_active = Config.shooter_output_start_state;
         is_input_active = Config.shooter_input_start_state;
-        output_motor_leader = new SparkFlex( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
+        output_motor_leader = new SparkMax( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
         SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
 
         if( Config.has_follower ) {
-            output_motor_follower = new SparkFlex( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
+            output_motor_follower = new SparkMax( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
             SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
         }
 
