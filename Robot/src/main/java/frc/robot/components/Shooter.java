@@ -36,12 +36,12 @@ public class Shooter {
     }
 
     private void setOutputMotors( double destination ) {
-        double output_leader_voltage = destination;
+        double output_leader_voltage = -destination;
         output_motor_leader.set( output_leader_voltage );
         SmartDashboard.putNumber( "Shooter Leader", output_motor_leader.get() );
 
         if( Config.has_follower ) {
-            double output_follower_voltage =  -destination;
+            double output_follower_voltage = -destination;
             output_motor_follower.set( output_follower_voltage );
             SmartDashboard.putNumber("Shooter Follower", output_motor_follower.get());
         }
