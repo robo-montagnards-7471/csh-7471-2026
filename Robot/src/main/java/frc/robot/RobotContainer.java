@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.components.Controller;
 import java.io.File;
 import swervelib.SwerveInputStream;
 
@@ -35,13 +36,14 @@ public class RobotContainer
 {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final Controller controller = new Controller();
+  final         CommandXboxController driverXbox = controller.getCommandController();
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
 
   // Establish a Sendable Chooser that will be able to be sent to the SmartDashboard, allowing selection of desired auto
-  // private final SendableChooser<Command> autoChooser;
+  private SendableChooser<Command> autoChooser;
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -142,8 +144,7 @@ public class RobotContainer
 
     if (RobotBase.isSimulation())
     {
-      // drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+      drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
     } else
     {
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
@@ -153,7 +154,7 @@ public class RobotContainer
     {
       Pose2d target = new Pose2d(new Translation2d(1, 4),
                                  Rotation2d.fromDegrees(90));
-      //drivebase.getSwerveDrive().field.getObject("targetPose").setPose(target);
+      // drivebase.getSwerveDrive().field.getObject("targetPose").setPose(target);
       driveDirectAngleKeyboard.driveToPose(() -> target,
                                            new ProfiledPIDController(5,
                                                                      0,
@@ -189,14 +190,14 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
-      // driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      // driverXbox.start().whileTrue(Commands.none());
-      // driverXbox.back().whileTrue(Commands.none());
-      driverXbox.y().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      // driverXbox.rightBumper().onTrue(Commands.none());
+      driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      driverXbox.start().whileTrue(Commands.none());
+      driverXbox.back().whileTrue(Commands.none());
+      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      driverXbox.rightBumper().onTrue(Commands.none());
       //driverXbox.y().onTrue(drivebase.driveToDistanceCommandDefer(drivebase::getPose, 2, 14));
-      // driverXbox.y().whileTrue(drivebase.driveForward());
+      driverXbox.y().whileTrue(drivebase.driveForward());
     }
 
   }
@@ -206,11 +207,11 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand()
-  // {
-  //   // Pass in the selected auto from the SmartDashboard as our desired autnomous commmand 
-  //   // return autoChooser.getSelected();
-  // }
+  public Command getAutonomousCommand()
+  {
+    // Pass in the selected auto from the SmartDashboard as our desired autnomous commmand 
+    return autoChooser.getSelected();
+  }
 
   public void setMotorBrake(boolean brake)
   {
