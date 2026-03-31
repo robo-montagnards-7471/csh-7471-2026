@@ -21,12 +21,12 @@ public class Config {
     public static double in_position = 0;
     public static double out_position = 0;
     public static double custom_divider = 10; // J'ai pas de nom pour ce truc, c'est pour remplacer les PIDs tout en restant smooth, utilisé pour l'intake pour le remote
-    // Launcher
-    public static double shooter_output_power = 1; // 1 is full speed, -1 is full speed other direction
-    public static double shooter_input_power = 0.75; // 1 is full speed, -1 is full speed other direction
-    public static boolean has_follower = false;
+    // Shooter
+    public static double shooter_output_power = 0.25; // 1 is full speed, -1 is full speed other direction
+    public static double shooter_input_power = 0.1; // 1 is full speed, -1 is full speed other direction
+    public static boolean has_follower = true;
     public static boolean shooter_output_start_state = true; // true is running
-    public static boolean shooter_input_start_state = false; // true is running
+    public static boolean shooter_input_start_state = true; // true is running
 
     // CAN BUS port
     // Climber
@@ -34,11 +34,10 @@ public class Config {
     // Intake
     public static int intake = 13;
     public static int remote = 18;
-    // Launcher
-    public static int shooter_output_leader = 14;
-    public static int shooter_output_follower = 16;
-    public static int shooter_input = 17;
-    
+    // Shooter
+    public static int shooter_output_leader = 9;
+    public static int shooter_output_follower = 14;
+    public static int shooter_input = 4;
     // Swerve
     public static int front_left_drive  = 1;
     public static int front_left_steer  = 5;
