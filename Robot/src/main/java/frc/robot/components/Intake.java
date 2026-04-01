@@ -61,7 +61,7 @@ public class Intake {
                 target_position = Config.in_position;
             }
         }
-
-        remote.set( target_position-remote_encoder.getPosition()/Config.custom_divider );
+        
+        remote.set( Config.smoothAtEnd( remote_encoder.getPosition(), target_position ) );
     }
 }

@@ -8,7 +8,7 @@ public class Config {
     public static double rotation_speed = 0.1;
 
     // Motors configuration
-    public static double custom_divider = 10; // J'ai pas de nom pour ce truc, c'est pour remplacer les PIDs tout en restant smooth, utilisé pour l'intake pour le remote
+    private static double custom_divider = 10; // J'ai pas de nom pour ce truc, c'est pour remplacer les PIDs tout en restant smooth, utilisé pour l'intake pour le remote
     // Climber
     public static double climb_up = 1;
     public static double climb_down = -1;
@@ -34,5 +34,10 @@ public class Config {
     public static int shooter_output_leader = 9;
     public static int shooter_output_follower = 14;
     public static int shooter_input = 4;
+
+    // General function
+    public static double smoothAtEnd( double current_speed, double target_speed ) {
+        return (target_speed-current_speed)/custom_divider;
+    }
 }
  
