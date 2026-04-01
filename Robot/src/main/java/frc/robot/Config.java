@@ -8,10 +8,6 @@ public class Config {
     public static double rotation_speed = 0.1;
 
     // Motors configuration
-    // PID
-    public static double P = 1.17;
-    public static double I = 1.03;
-    public static double D = 0.1;
     // Climber
     public static double climb_up = 1;
     public static double climb_down = -1;
