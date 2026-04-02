@@ -132,23 +132,18 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
-    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngle);
-    Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngleKeyboard);
+    // Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
+    // Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
+    //     driveDirectAngle);
+    // Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
+    // Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
+    // Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
+    //     driveDirectAngleKeyboard);
 
-    if (RobotBase.isSimulation())
-    {
-      drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
-    } else
-    {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    }
+    drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity);
+    // drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
     if (Robot.isSimulation())
     {
