@@ -140,8 +140,8 @@ public class RobotContainer
     // Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
     // Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleKeyboard);
 
-    drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    // drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity); // Plan B
+    // drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity); // Plan B
 
     if (Robot.isSimulation())
     {
