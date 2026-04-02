@@ -4,6 +4,9 @@ import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.spark.SparkLowLevel;
+import edu.wpi.first.wpilibj.DigitalInput;
+
+import java.rmi.RemoteException;
 
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
@@ -17,10 +20,16 @@ public class Intake {
     private SparkMax remote;
     private RelativeEncoder remote_encoder;
 
+    private DigitalInput in_limit_switch;
+    private DigitalInput out_limit_switch;
+
     public Intake() {
         is_in = false;
         is_out = false;
         target_position = Config.in_position;
+
+        in_limit_switch = new DigitalInput( Config.limit_switch_in );
+        out_limit_switch = new DigitalInput( Config.limit_switch_out );
 
         motor = new SparkMax( Config.intake, SparkLowLevel.MotorType.kBrushless );
         remote = new SparkMax( Config.remote, SparkLowLevel.MotorType.kBrushless );
@@ -62,6 +71,13 @@ public class Intake {
             }
         }
         
+        if( !in_limit_switch.get() ) {
+            remote_encoder.setPosition( Config.in_position );
+        }
+        if( !out_limit_switch.get() ) {
+            remote_encoder.setPosition( Config.out_position );
+        }
         remote.set( Config.smoothAtEnd( remote_encoder.getPosition(), target_position ) );
+        SmartDashboard.putNumber("Remote Position", remote_encoder.getPosition());
     }
 }

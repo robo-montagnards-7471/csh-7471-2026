@@ -24,12 +24,14 @@ public class Config {
     public static boolean shooter_output_start_state = true; // true is running
     public static boolean shooter_input_start_state = false; // true is running
 
-    // CAN BUS port
+    // Connexion port
     // Climber
     public static int climber = 15;
     // Intake
     public static int intake = 13;
     public static int remote = 18;
+    public static int limit_switch_in = 0;
+    public static int limit_switch_out = 1;
     // Shooter
     public static int shooter_output_leader = 9;
     public static int shooter_output_follower = 14;
