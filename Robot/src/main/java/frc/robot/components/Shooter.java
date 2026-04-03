@@ -4,6 +4,9 @@ import com.revrobotics.spark.SparkMax;
 
 
 import com.revrobotics.spark.SparkLowLevel;
+
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
 
@@ -84,15 +87,16 @@ public class Shooter {
     }
 
     private double safeAcceleration( double current_speed, double target_speed ) {
-        target_speed = target_speed/Config.max_speed;
-        current_speed = current_speed/Config.max_speed;
-        double to_return = Config.smoothAtEnd(current_speed, target_speed);
-        if( current_speed < target_speed*0.05 ) {
-            to_return = current_speed + target_speed*0.01;
-        }
-        if( to_return > 1 ) {
-            to_return = 1;
-        }
-        return to_return;
+        return target_speed;
+        // target_speed = target_speed/Config.max_speed;
+        // current_speed = current_speed/Config.max_speed;
+        // double to_return = Config.smoothAtEnd(current_speed, target_speed);
+        // if( current_speed < target_speed*0.05 ) {
+        //     to_return = current_speed + target_speed*0.01;
+        // }
+        // if( to_return > 1 ) {
+        //     to_return = 1;
+        // }
+        // return to_return;
     }
 }
