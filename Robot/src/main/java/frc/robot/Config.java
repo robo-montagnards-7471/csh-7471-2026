@@ -28,7 +28,7 @@ public class Config {
     public static int climber = 15;
     // Intake
     public static int intake = 13;
-    public static int remote = 18;
+    public static int remote = 12;
     public static int limit_switch_in = 0;
     public static int limit_switch_out = 1;
     // Shooter

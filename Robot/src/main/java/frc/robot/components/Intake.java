@@ -3,6 +3,8 @@ package frc.robot.components;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -16,7 +18,7 @@ public class Intake {
     private boolean is_out;
     private double target_position;
 
-    private SparkMax motor;
+    private SparkFlex motor;
     private SparkMax remote;
     private RelativeEncoder remote_encoder;
 
@@ -31,7 +33,7 @@ public class Intake {
         in_limit_switch = new DigitalInput( Config.limit_switch_in );
         out_limit_switch = new DigitalInput( Config.limit_switch_out );
 
-        motor = new SparkMax( Config.intake, SparkLowLevel.MotorType.kBrushless );
+        motor = new SparkFlex( Config.intake, SparkLowLevel.MotorType.kBrushless );
         remote = new SparkMax( Config.remote, SparkLowLevel.MotorType.kBrushless );
         remote_encoder = remote.getEncoder();
         remote_encoder.setPosition( 0 );

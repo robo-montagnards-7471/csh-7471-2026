@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.components.Climber;
+// import frc.robot.components.Climber;
 import frc.robot.components.Intake;
 import frc.robot.components.Shooter;
 import frc.robot.Config;
@@ -31,9 +31,9 @@ public class Robot extends TimedRobot
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private final Controller controller;
-  private final Climber climber;
   private final Intake intake;
   private final Shooter shooter;
+  // private final Climber climber;
 
   private static Robot   instance;
   private        Command m_autonomousCommand;
@@ -50,8 +50,8 @@ public class Robot extends TimedRobot
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
+    // climber = new Climber();
     controller = new Controller();
-    climber = new Climber();
     intake = new Intake();
     shooter = new Shooter();
   }
@@ -171,10 +171,10 @@ public class Robot extends TimedRobot
   {
     // controller
     controller.poll();
-    // climber
-    boolean climb_up = controller.climbUp();
-    boolean climb_down = controller.climbDown();
-    climber.poll(climb_up, climb_down);
+    // // climber
+    // boolean climb_up = controller.climbUp();
+    // boolean climb_down = controller.climbDown();
+    // climber.poll(climb_up, climb_down);
     // intake
     boolean toggle_intake_in = controller.toggleIntakeIn();
     boolean toggle_intake_out = controller.toggleIntakeOut();

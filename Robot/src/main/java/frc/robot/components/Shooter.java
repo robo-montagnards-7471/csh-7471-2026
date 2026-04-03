@@ -3,7 +3,6 @@ package frc.robot.components;
 import com.revrobotics.spark.SparkMax;
 
 
-import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
@@ -15,8 +14,8 @@ public class Shooter {
     private boolean is_output_active;
     boolean is_input_active;
 
-    private SparkFlex output_motor_leader;
-    private SparkFlex output_motor_follower;
+    private SparkMax output_motor_leader;
+    private SparkMax output_motor_follower;
     private SparkMax input_motor;
 
     private RelativeEncoder output_encoder_leader;
@@ -29,12 +28,12 @@ public class Shooter {
         is_output_active = Config.shooter_output_start_state;
         is_input_active = Config.shooter_input_start_state;
 
-        output_motor_leader = new SparkFlex( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
+        output_motor_leader = new SparkMax( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
         output_encoder_leader = output_motor_leader.getEncoder();
         SmartDashboard.putNumber( "Shooter Leader", output_encoder_leader.getVelocity() );
 
         if( Config.has_follower ) {
-            output_motor_follower = new SparkFlex( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
+            output_motor_follower = new SparkMax( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
             output_encoder_follower = output_motor_follower.getEncoder();
             SmartDashboard.putNumber( "Shooter Follower", output_encoder_follower.getVelocity() );
         }
