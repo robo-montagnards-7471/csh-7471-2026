@@ -5,8 +5,8 @@ import com.revrobotics.spark.SparkMax;
 
 import com.revrobotics.spark.SparkLowLevel;
 
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-
+import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.motorcontrol.PWMMotorController;
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
 
@@ -19,13 +19,15 @@ public class Shooter {
 
     private SparkMax output_motor_leader;
     private SparkMax output_motor_follower;
-    private SparkMax input_motor;
+    private PWM input_motor;
 
     private RelativeEncoder output_encoder_leader;
     private RelativeEncoder output_encoder_follower;
 
     private double output_power = Config.shooter_output_power;
     private double input_power = Config.shooter_input_power;
+
+    private double current_output_speed;
 
     public Shooter() {
         is_output_active = Config.shooter_output_start_state;
@@ -41,12 +43,12 @@ public class Shooter {
             SmartDashboard.putNumber( "Shooter Follower", output_encoder_follower.getVelocity() );
         }
 
-        input_motor = new SparkMax( Config.shooter_input, SparkLowLevel.MotorType.kBrushless );
-        SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
+        input_motor = new PWM( Config.shooter_input );
+        SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );
     }
 
     private void setOutputMotors( double destination ) {
-        destination *= -1;
+        destination *= 1;
         double leader_speed = output_encoder_leader.getVelocity();
         output_motor_leader.set( safeAcceleration( leader_speed, destination ) );
         SmartDashboard.putNumber( "Shooter Leader", leader_speed );
@@ -66,24 +68,23 @@ public class Shooter {
         if( toggle_output ) {
             is_output_active = !is_output_active;
         }
-
         
         if( is_output_active ) {
-            setOutputMotors( output_power );
+            current_output_speed = Config.smoothAtEnd(current_output_speed, output_power);
         }
         else {
-            setOutputMotors( 0 );
+            current_output_speed = 0;
         }
+        setOutputMotors( -current_output_speed );
 
-        if( is_input_active ) {
-            double power = safeAcceleration( input_motor.get(), input_power);
-            input_motor.set( power );
+        if( current_output_speed > output_power*Config.start_shooter_input_when_output_is_at ) {
+            input_motor.setSpeed( input_power );
         }
         else {
-            input_motor.set( 0 );
+            input_motor.setSpeed( 0 );
         }
 
-        SmartDashboard.putNumber( "Shooter Input", input_motor.get() );
+        SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );
         SmartDashboard.putBoolean( "Shooter Input State", is_input_active );
     }
 

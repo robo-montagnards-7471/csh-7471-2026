@@ -126,6 +126,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
+    shooter.poll(true, true);
     m_robotContainer.setMotorBrake(true);
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -145,6 +146,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic()
   {
+    shooter.poll(false, false);
   }
 
   @Override

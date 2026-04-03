@@ -76,23 +76,25 @@ public class Controller {
     }
 
     public boolean getShooterOutputToggle() {
-        double left_bumper_state = xbox_controller.getLeftTriggerAxis();
-        boolean toggle = false;
-        if( left_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
-            toggle = true;
-        }
-        last_left_bumper_state = left_bumper_state;
+        // double left_bumper_state = xbox_controller.getLeftTriggerAxis();
+        // boolean toggle = false;
+        // if( left_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
+        //     toggle = true;
+        // }
+        // last_left_bumper_state = left_bumper_state;
+        boolean toggle = xbox_controller.getLeftBumperButtonPressed();
         SmartDashboard.putBoolean("Toggle Output", toggle);
         return toggle;
     }
 
     public boolean getIntakeRemoteToggle() {
-        double right_bumper_state = xbox_controller.getRightTriggerAxis();
-        boolean toggle = false;
-        if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
-            toggle = true;
-        }
-        last_right_bumper_state = right_bumper_state;
+        // double right_bumper_state = xbox_controller.getRightTriggerAxis();
+        // boolean toggle = false;
+        // if( right_bumper_state > Config.bumper_sensitivity && last_right_bumper_state < Config.bumper_sensitivity ) {
+        //     toggle = true;
+        // }
+        // last_right_bumper_state = right_bumper_state;
+        boolean toggle = xbox_controller.getRightBumperButtonPressed();
         SmartDashboard.putBoolean("Toggle Remote Intake", toggle);
         return toggle;
     }

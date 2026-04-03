@@ -8,8 +8,6 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import edu.wpi.first.wpilibj.DigitalInput;
 
-import java.rmi.RemoteException;
-
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
 
@@ -41,11 +39,12 @@ public class Intake {
         SmartDashboard.putNumber("Intake Speed", motor.get());
         SmartDashboard.putNumber("Remote Speed", remote.get());
         SmartDashboard.putNumber("Remote Position", remote_encoder.getPosition());
+
+        SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch.get());
+        SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch.get());
     }
 
     public void poll( boolean in_toggle, boolean out_toggle, boolean toggle_remote ) {
-        boolean in_limit_switch_state = in_limit_switch.get();
-        boolean out_limit_switch_state = out_limit_switch.get();
         if( in_toggle ) {
             is_in = !is_in;
             is_out = false;
@@ -75,13 +74,24 @@ public class Intake {
             }
         }
         
-        if( !in_limit_switch_state ) {
+        boolean in_limit_switch_state = in_limit_switch.get();
+        boolean out_limit_switch_state = out_limit_switch.get();
+        
+        if( in_limit_switch_state ) {
             remote_encoder.setPosition( Config.in_position );
         }
-        if( !out_limit_switch_state ) {
+        if( out_limit_switch_state ) {
             remote_encoder.setPosition( Config.out_position );
         }
-        remote.set( Config.smoothAtEnd( remote_encoder.getPosition(), target_position ) );
+        remote.set( smoothSpeed( remote_encoder.getPosition(), target_position ) );
         SmartDashboard.putNumber("Remote Position", remote_encoder.getPosition());
+
+        SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch_state);
+        SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch_state);
+    }
+
+    private double smoothSpeed( double current_position, double target_position ) {
+        double distance_to_go = target_position-current_position;
+        return distance_to_go*12/10;
     }
 }
