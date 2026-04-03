@@ -46,6 +46,7 @@ public class Shooter {
     }
 
     private void setOutputMotors( double destination ) {
+        destination *= -1;
         double leader_speed = output_encoder_leader.getVelocity();
         output_motor_leader.set( safeAcceleration( leader_speed, destination ) );
         SmartDashboard.putNumber( "Shooter Leader", leader_speed );

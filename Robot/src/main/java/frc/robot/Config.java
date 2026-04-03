@@ -20,7 +20,7 @@ public class Config {
     // public static double shooter_input_power = 30; // number of RPM of the motor
     // public static double max_speed = 120; // max motor speed, in RPM
     public static double shooter_output_power = 1; // number of RPM of the motor
-    public static double shooter_input_power = 0.1; // number of RPM of the motor
+    public static double shooter_input_power = 0.2; // number of RPM of the motor
 
     public static boolean has_follower = true;
     public static boolean shooter_output_start_state = true; // true is running

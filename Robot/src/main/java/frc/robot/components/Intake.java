@@ -44,6 +44,8 @@ public class Intake {
     }
 
     public void poll( boolean in_toggle, boolean out_toggle, boolean toggle_remote ) {
+        boolean in_limit_switch_state = in_limit_switch.get();
+        boolean out_limit_switch_state = out_limit_switch.get();
         if( in_toggle ) {
             is_in = !is_in;
             is_out = false;
@@ -73,10 +75,10 @@ public class Intake {
             }
         }
         
-        if( !in_limit_switch.get() ) {
+        if( !in_limit_switch_state ) {
             remote_encoder.setPosition( Config.in_position );
         }
-        if( !out_limit_switch.get() ) {
+        if( !out_limit_switch_state ) {
             remote_encoder.setPosition( Config.out_position );
         }
         remote.set( Config.smoothAtEnd( remote_encoder.getPosition(), target_position ) );
