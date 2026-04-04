@@ -94,12 +94,10 @@ public class Shooter {
         SmartDashboard.putBoolean( "Shooter Input State", is_input_active );
     }
 
-    public void reverseInput( boolean reverse_input ) {
-        double current_speed = input_motor.getSpeed();
-        if( current_speed == 0 ) {
-            input_motor.setSpeed( input_power );
-        }
-    }
+    // public void reverseInput( boolean reverse_input ) {
+    //     double current_speed = input_motor.getSpeed();
+    //     input_motor.setSpeed( -input_power );
+    // }
 
     private double safeAcceleration( double current_speed, double target_speed ) {
         return target_speed;

@@ -190,8 +190,8 @@ public class Robot extends TimedRobot
     boolean toggle_shooter_input = controller.getShooterInputToggle();
     boolean toggle_shooter_output = controller.getShooterOutputToggle();
     SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
-    shooter.reverseInput( controller.reverseShooterInput() );
     shooter.poll(toggle_shooter_input, toggle_shooter_output);
+    // shooter.reverseInput( controller.reverseShooterInput() );
   }
 
   @Override

@@ -106,7 +106,7 @@ public class Controller {
         return toggle;
     }
 
-    public boolean reverseShooterInput() {
-        return xbox_controller.getLeftStickButton();
-    }
+    // public boolean reverseShooterInput() {
+    //     return xbox_controller.getLeftStickButton();
+    // }
 }

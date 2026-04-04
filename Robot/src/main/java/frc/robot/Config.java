@@ -14,15 +14,15 @@ public class Config {
     public static double in = 0.375;
     public static double out = -0.375;
     public static double in_position = 0;
-    public static double out_position = 17.5;
+    public static double out_position = 15;
     public static double remote_speed = 0.2;
     public static boolean intake_deployed_at_start = false;
     // Shooter
     // public static double shooter_output_power = 60; // number of RPM of the motor
     // public static double shooter_input_power = 30; // number of RPM of the motor
     // public static double max_speed = 120; // max motor speed, in RPM
-    public static double shooter_output_power = 1; // number of RPM of the motor
-    public static double shooter_input_power = 0.9; // number of RPM of the motor
+    public static double shooter_output_power = 1;
+    public static double shooter_input_power = 1;
     public static double start_shooter_input_when_output_is_at = 0.9; // 1 is 100%
 
     public static boolean has_follower = true;
