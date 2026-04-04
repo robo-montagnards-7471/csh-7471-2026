@@ -14,7 +14,7 @@ public class Config {
     public static double in = 0.375;
     public static double out = -0.375;
     public static double in_position = 0;
-    public static double out_position = 17;
+    public static double out_position = 18;
     public static double remote_speed = 0.1;
     public static boolean intake_deployed_at_start = false;
     // Shooter

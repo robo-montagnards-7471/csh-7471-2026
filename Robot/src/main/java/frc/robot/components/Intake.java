@@ -94,11 +94,11 @@ public class Intake {
             target_position = Config.in_position;
         }
         
-        if( is_moving )
-        {
-            in_limit_switch_state = in_limit_switch.get();
-            out_limit_switch_state = out_limit_switch.get();
-        }
+        // if( is_moving )
+        // {
+        in_limit_switch_state = in_limit_switch.get();
+        out_limit_switch_state = out_limit_switch.get();
+        // }
         
         if( in_limit_switch_state ) {
             remote_encoder.setPosition( Config.in_position );
