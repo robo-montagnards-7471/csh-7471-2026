@@ -126,6 +126,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
+    intake.resetRemoteEncoder();
     shooter.poll(true, true);
     m_robotContainer.setMotorBrake(true);
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();

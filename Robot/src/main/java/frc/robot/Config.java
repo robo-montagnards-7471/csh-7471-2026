@@ -14,7 +14,7 @@ public class Config {
     public static double in = 0.375;
     public static double out = -0.375;
     public static double in_position = 0;
-    public static double out_position = 5;
+    public static double out_position = 17;
     public static double remote_speed = 0.1;
     public static boolean intake_deployed_at_start = false;
     // Shooter
@@ -35,8 +35,8 @@ public class Config {
     // Intake
     public static int intake = 13;
     public static int remote = 12;
-    public static int limit_switch_in = 0;
-    public static int limit_switch_out = 1;
+    public static int limit_switch_in = 1;
+    public static int limit_switch_out = 0;
     // Shooter
     public static int shooter_output_leader = 14;
     public static int shooter_output_follower = 9;

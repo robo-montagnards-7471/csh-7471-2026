@@ -12,10 +12,15 @@ import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
 
 public class Intake {
+    private boolean is_moving;
+
     private boolean is_in;
     private boolean is_out;
     private boolean is_deployed;
     private double target_position;
+
+    boolean in_limit_switch_state;
+    boolean out_limit_switch_state;
 
     private SparkFlex motor;
     private SparkMax remote;
@@ -26,6 +31,7 @@ public class Intake {
 
     public Intake() {
         is_deployed = Config.intake_deployed_at_start;
+        is_moving = false;
 
         is_in = false;
         is_out = false;
@@ -34,14 +40,17 @@ public class Intake {
         in_limit_switch = new DigitalInput( Config.limit_switch_in );
         out_limit_switch = new DigitalInput( Config.limit_switch_out );
 
+        in_limit_switch_state = in_limit_switch.get();
+        out_limit_switch_state = out_limit_switch.get();
+
         motor = new SparkFlex( Config.intake, SparkLowLevel.MotorType.kBrushless );
         remote = new SparkMax( Config.remote, SparkLowLevel.MotorType.kBrushless );
         remote_encoder = remote.getEncoder();
         if( is_deployed ) {
-            remote_encoder.setPosition( Config.in_position );
+            remote_encoder.setPosition( Config.out_position );
         }
         else if( !is_deployed ) {
-            remote_encoder.setPosition( Config.out_position );
+            remote_encoder.setPosition( Config.in_position );
         }
 
         SmartDashboard.putNumber("Intake Speed", motor.get());
@@ -74,26 +83,49 @@ public class Intake {
         SmartDashboard.putNumber("Intake Speed", motor.get());
 
         if( toggle_remote ) {
+            is_moving = true;
             is_deployed = !is_deployed;
         }
+
+        if( is_deployed ) {
+            target_position = Config.out_position;
+        }
+        else if( !is_deployed ) {
+            target_position = Config.in_position;
+        }
         
-        boolean in_limit_switch_state = in_limit_switch.get();
-        boolean out_limit_switch_state = out_limit_switch.get();
+        if( is_moving )
+        {
+            in_limit_switch_state = in_limit_switch.get();
+            out_limit_switch_state = out_limit_switch.get();
+        }
         
         if( in_limit_switch_state ) {
             remote_encoder.setPosition( Config.in_position );
+            if( target_position == Config.in_position ) {
+                is_moving = false;
+            }
         }
         if( out_limit_switch_state ) {
             remote_encoder.setPosition( Config.out_position );
+            if( target_position == Config.out_position ) {
+                is_moving = false;
+            }
         }
 
         double current_remote_position = remote_encoder.getPosition();
 
-        if( current_remote_position < target_position && is_deployed ) {
-            remote.set( Config.remote_speed );
-        }
-        else if( current_remote_position > target_position && !is_deployed ) {
-            remote.set( -Config.remote_speed );
+        if( is_moving )
+        {
+            if( current_remote_position < target_position && is_deployed ) {
+                remote.set( Config.remote_speed );
+            }
+            else if( current_remote_position > target_position && !is_deployed ) {
+                remote.set( -Config.remote_speed );
+            }
+            else {
+                remote.set( 0 );
+            }
         }
         else {
             remote.set( 0 );
@@ -112,7 +144,12 @@ public class Intake {
         // }
         SmartDashboard.putNumber("Remote Position", current_remote_position);
 
+
         SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch_state);
         SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch_state);
+    }
+
+    public void resetRemoteEncoder() {
+        remote_encoder.setPosition( Config.in_position );
     }
 }
