@@ -95,6 +95,7 @@ public class Controller {
         // }
         // last_right_bumper_state = right_bumper_state;
         boolean toggle = xbox_controller.getRightBumperButtonPressed();
+        toggle = toggle || xbox_controller.getRightStickButtonPressed();
         SmartDashboard.putBoolean("Toggle Remote Intake", toggle);
         return toggle;
     }
@@ -103,5 +104,9 @@ public class Controller {
         boolean toggle = xbox_controller.getXButtonPressed();
         SmartDashboard.putBoolean("Toggle Shooter input", toggle);
         return toggle;
+    }
+
+    public boolean reverseShooterInput() {
+        return xbox_controller.getLeftStickButton();
     }
 }

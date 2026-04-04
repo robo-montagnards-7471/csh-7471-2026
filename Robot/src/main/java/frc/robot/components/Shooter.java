@@ -30,8 +30,8 @@ public class Shooter {
     private double current_output_speed;
 
     public Shooter() {
-        is_output_active = Config.shooter_output_start_state;
-        is_input_active = Config.shooter_input_start_state;
+        is_output_active = false;
+        is_input_active = false;
 
         output_motor_leader = new SparkMax( Config.shooter_output_leader, SparkLowLevel.MotorType.kBrushless );
         output_encoder_leader = output_motor_leader.getEncoder();
@@ -92,6 +92,13 @@ public class Shooter {
 
         SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );
         SmartDashboard.putBoolean( "Shooter Input State", is_input_active );
+    }
+
+    public void reverseInput( boolean reverse_input ) {
+        double current_speed = input_motor.getSpeed();
+        if( current_speed == 0 ) {
+            input_motor.setSpeed( input_power );
+        }
     }
 
     private double safeAcceleration( double current_speed, double target_speed ) {

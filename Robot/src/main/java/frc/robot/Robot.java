@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.components.Controller;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -127,7 +128,7 @@ public class Robot extends TimedRobot
   public void autonomousInit()
   {
     intake.resetRemoteEncoder();
-    shooter.poll(true, true);
+    shooter.poll(Config.shooter_input_start_state, Config.shooter_output_start_state);
     m_robotContainer.setMotorBrake(true);
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -153,6 +154,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit()
   {
+    intake.resetRemoteEncoder();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -182,11 +184,13 @@ public class Robot extends TimedRobot
     boolean toggle_intake_in = controller.toggleIntakeIn();
     boolean toggle_intake_out = controller.toggleIntakeOut();
     boolean toggle_remote = controller.getIntakeRemoteToggle();
+
     intake.poll( toggle_intake_in, toggle_intake_out, toggle_remote );
     // shooter
     boolean toggle_shooter_input = controller.getShooterInputToggle();
     boolean toggle_shooter_output = controller.getShooterOutputToggle();
     SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
+    shooter.reverseInput( controller.reverseShooterInput() );
     shooter.poll(toggle_shooter_input, toggle_shooter_output);
   }
 
