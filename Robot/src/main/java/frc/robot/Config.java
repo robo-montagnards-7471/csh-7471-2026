@@ -15,7 +15,8 @@ public class Config {
     public static double out = -0.375;
     public static double in_position = 0;
     public static double out_position = 5;
-    public static double remote_speed = 0.2;
+    public static double remote_speed = 0.1;
+    public static boolean intake_deployed_at_start = false;
     // Shooter
     // public static double shooter_output_power = 60; // number of RPM of the motor
     // public static double shooter_input_power = 30; // number of RPM of the motor
