@@ -27,7 +27,7 @@ public class Config {
 
     public static boolean has_follower = true;
     public static boolean shooter_output_start_state = true; // true is running
-    public static boolean shooter_input_start_state = false; // true is running
+    public static boolean shooter_input_start_state = true; // true is running
 
     // Connexion port
     // Climber
