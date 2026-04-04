@@ -70,7 +70,8 @@ public class Shooter {
         }
         
         if( is_output_active ) {
-            current_output_speed = Config.smoothAtEnd(current_output_speed, output_power);
+            // current_output_speed = Config.smoothAtEnd(current_output_speed, output_power);
+            current_output_speed = output_power;
         }
         else {
             current_output_speed = 0;
@@ -78,7 +79,12 @@ public class Shooter {
         setOutputMotors( -current_output_speed );
 
         if( current_output_speed > output_power*Config.start_shooter_input_when_output_is_at ) {
-            input_motor.setSpeed( input_power );
+            if( is_input_active ) {
+                input_motor.setSpeed( input_power );
+            }
+            else {
+                input_motor.setSpeed( 0 );
+            }
         }
         else {
             input_motor.setSpeed( 0 );

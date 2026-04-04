@@ -83,15 +83,21 @@ public class Intake {
         if( out_limit_switch_state ) {
             remote_encoder.setPosition( Config.out_position );
         }
-        remote.set( smoothSpeed( remote_encoder.getPosition(), target_position ) );
+
+        // if( Math.abs( target_position-remote_encoder.getPosition() ) < 5 ) {
+        //     if( target_position == Config.out_position ) {
+        //         remote.set( Config.remote_speed );
+        //     }
+        //     else if( target_position == Config.in_position ) {
+        //         remote.set( -Config.remote_speed );
+        //     }
+        // }
+        // else {
+        //     remote.set( 0 );
+        // }
         SmartDashboard.putNumber("Remote Position", remote_encoder.getPosition());
 
         SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch_state);
         SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch_state);
-    }
-
-    private double smoothSpeed( double current_position, double target_position ) {
-        double distance_to_go = target_position-current_position;
-        return distance_to_go*12/10;
     }
 }
