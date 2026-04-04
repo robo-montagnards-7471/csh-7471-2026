@@ -22,6 +22,6 @@
     "drive": false,
     "angle": false
   },
-  "absoluteEncoderOffset": 0.944,
+  "absoluteEncoderOffset": 0.916,
   "absoluteEncoderInverted": true
 }
