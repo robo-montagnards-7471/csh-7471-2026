@@ -8,14 +8,14 @@ import frc.robot.Config;
 
 public class Controller {
     final private static XboxController xbox_controller = new XboxController(Config.controller_port);
-    private double last_right_bumper_state;
-    private double last_left_bumper_state;
+    // private double last_right_bumper_state;
+    // private double last_left_bumper_state;
     
     public Controller() {
         SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
         SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
-        last_right_bumper_state = xbox_controller.getRightTriggerAxis();
-        last_left_bumper_state = xbox_controller.getLeftTriggerAxis();
+        // last_right_bumper_state = xbox_controller.getRightTriggerAxis();
+        // last_left_bumper_state = xbox_controller.getLeftTriggerAxis();
     }
 
     public XboxController getController() {
@@ -35,6 +35,10 @@ public class Controller {
 
 
     public void poll() {
+        SmartDashboard.putNumber("Left Joystick X", xbox_controller.getLeftX());
+        SmartDashboard.putNumber("Left Joystick Y", xbox_controller.getLeftY());
+        SmartDashboard.putNumber("Right Joystick X", xbox_controller.getRightX());
+        SmartDashboard.putNumber("Right Joystick Y", xbox_controller.getRightY());
         // double modifier = xbox_controller.getRightX()*-Config.rotation_speed;
 
         // BigDecimal bd = new BigDecimal(Double.toString(modifier));
