@@ -6,7 +6,7 @@ public class Config {
     public static double bumper_sensitivity = 0.5; // 0 is not pressed and 1 is fully pressed
 
     // Motors configuration
-    private static double custom_divider = 20; // J'ai pas de nom pour ce truc, c'est pour remplacer les PIDs tout en restant smooth, utilisé pour l'intake pour le remote
+    private static double custom_divider = 15; // J'ai pas de nom pour ce truc, c'est pour remplacer les PIDs tout en restant smooth, utilisé pour l'intake pour le remote
     // Climber
     public static double climb_up = 1;
     public static double climb_down = -1;
@@ -17,6 +17,7 @@ public class Config {
     public static double out_position = 15;
     public static double remote_speed = 0.2;
     public static boolean intake_deployed_at_start = false;
+    public static double remote_stop_threshold = 0.1; // if the remote position changes less than this value, we consider it stopped
     // Shooter
     // public static double shooter_output_power = 60; // number of RPM of the motor
     // public static double shooter_input_power = 30; // number of RPM of the motor

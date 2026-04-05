@@ -6,7 +6,6 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.motorcontrol.PWMMotorController;
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
 
@@ -15,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter {
     private boolean is_output_active;
-    boolean is_input_active;
+    private boolean is_input_active;
 
     private SparkMax output_motor_leader;
     private SparkMax output_motor_follower;
@@ -27,6 +26,8 @@ public class Shooter {
     private double output_power = Config.shooter_output_power;
     private double input_power = Config.shooter_input_power;
 
+    
+    private double current_input_speed;
     private double current_output_speed;
 
     public Shooter() {
@@ -80,15 +81,16 @@ public class Shooter {
 
         if( current_output_speed > output_power*Config.start_shooter_input_when_output_is_at ) {
             if( is_input_active ) {
-                input_motor.setSpeed( input_power );
+                current_input_speed = Config.smoothAtEnd(current_input_speed, input_power);
             }
             else {
-                input_motor.setSpeed( 0 );
+                current_input_speed = 0;
             }
         }
         else {
-            input_motor.setSpeed( 0 );
+            current_input_speed = 0;
         }
+        input_motor.setSpeed( current_input_speed );
 
         SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );
         SmartDashboard.putBoolean( "Shooter Input State", is_input_active );

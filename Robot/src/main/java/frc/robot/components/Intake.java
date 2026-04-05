@@ -19,8 +19,9 @@ public class Intake {
     private boolean is_deployed;
     private double target_position;
 
-    boolean in_limit_switch_state;
-    boolean out_limit_switch_state;
+    private double last_remote_position;
+    private boolean in_limit_switch_state;
+    private boolean out_limit_switch_state;
 
     private SparkFlex motor;
     private SparkMax remote;
@@ -117,6 +118,10 @@ public class Intake {
 
         double current_remote_position = remote_encoder.getPosition();
 
+        if( Math.abs( last_remote_position - current_remote_position ) < Config.remote_stop_threshold ) {
+            is_moving = false;
+        }
+
         if( is_moving )
         {
             if( current_remote_position < target_position && is_deployed ) {
@@ -144,6 +149,7 @@ public class Intake {
         // else {
         //     remote.set( 0 );
         // }
+        last_remote_position = current_remote_position;
         SmartDashboard.putNumber("Remote Position", current_remote_position);
 
 
