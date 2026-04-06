@@ -36,9 +36,9 @@ public class Controller {
 
     public void poll() {
         SmartDashboard.putNumber("Left Joystick X", xbox_controller.getLeftX());
-        SmartDashboard.putNumber("Left Joystick Y", xbox_controller.getLeftY());
+        SmartDashboard.putNumber("Left Joystick Y", xbox_controller.getLeftY()*-1);
         SmartDashboard.putNumber("Right Joystick X", xbox_controller.getRightX());
-        SmartDashboard.putNumber("Right Joystick Y", xbox_controller.getRightY());
+        SmartDashboard.putNumber("Right Joystick Y", xbox_controller.getRightY()*-1);
         // double modifier = xbox_controller.getRightX()*-Config.rotation_speed;
 
         // BigDecimal bd = new BigDecimal(Double.toString(modifier));
