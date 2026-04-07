@@ -81,7 +81,8 @@ public class Shooter {
 
         if( current_output_speed > output_power*Config.start_shooter_input_when_output_is_at ) {
             if( is_input_active ) {
-                current_input_speed = Config.smoothAtEnd(current_input_speed, input_power);
+                current_input_speed = input_power;
+                // current_input_speed = Config.smoothAtEnd(current_input_speed, input_power);
             }
             else {
                 current_input_speed = 0;

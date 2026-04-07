@@ -90,7 +90,7 @@
           },
           {
             "title": "Inside intake",
-            "x": 1664.0,
+            "x": 1408.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -107,7 +107,7 @@
           },
           {
             "title": "Outside Intake",
-            "x": 1792.0,
+            "x": 1536.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -282,6 +282,36 @@
               "divisions": 5,
               "inverted": false,
               "orientation": "vertical"
+            }
+          },
+          {
+            "title": "Stop Chain",
+            "x": 1152.0,
+            "y": 384.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Toggle Button",
+            "properties": {
+              "topic": "/SmartDashboard/Stop Chain",
+              "period": 0.06,
+              "data_type": "boolean"
+            }
+          },
+          {
+            "title": "Can chain move",
+            "x": 1792.0,
+            "y": 256.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/Can chain move",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
             }
           }
         ]

@@ -60,9 +60,18 @@ public class Intake {
 
         SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch.get());
         SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch.get());
+        SmartDashboard.putBoolean("Can chain move", is_moving);
+        // Dashboard control: a button to immediately stop the intake remote chain
+        SmartDashboard.putBoolean("Stop Chain", false);
     }
 
     public void poll( boolean in_toggle, boolean out_toggle, boolean toggle_remote ) {
+        // If dashboard Stop Chain button was pressed, stop the chain and reset the button
+        if ( SmartDashboard.getBoolean("Stop Chain", false) ) {
+            stopChain();
+            SmartDashboard.putBoolean("Stop Chain", false);
+        }
+
         if( in_toggle ) {
             is_in = !is_in;
             is_out = false;
@@ -94,7 +103,7 @@ public class Intake {
         else if( !is_deployed ) {
             target_position = Config.in_position;
         }
-        
+
         in_limit_switch_state = false;
         out_limit_switch_state = false;
         if( is_moving )
@@ -152,9 +161,9 @@ public class Intake {
         last_remote_position = current_remote_position;
         SmartDashboard.putNumber("Remote Position", current_remote_position);
 
-
         SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch_state);
         SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch_state);
+        SmartDashboard.putBoolean("Can chain move", is_moving);
     }
 
     public void resetRemoteEncoder() {
@@ -164,5 +173,9 @@ public class Intake {
         else if( out_limit_switch.get() ) {
             remote_encoder.setPosition( Config.out_position );
         }
+    }
+
+    private void stopChain() {
+        is_moving = false;
     }
 }
