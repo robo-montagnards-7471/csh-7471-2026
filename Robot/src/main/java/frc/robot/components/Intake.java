@@ -178,4 +178,13 @@ public class Intake {
     private void stopChain() {
         is_moving = false;
     }
+
+    public boolean isIntakeDown() {
+        if( !is_moving ) {
+            if( target_position == Config.out_position ) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

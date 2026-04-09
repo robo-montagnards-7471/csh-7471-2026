@@ -61,7 +61,7 @@ public class Shooter {
         }
     }
 
-    public void poll( boolean toggle_input, boolean toggle_output ) {
+    public void poll( boolean toggle_input, boolean toggle_output, boolean can_shoot ) {
         SmartDashboard.putBoolean("toggle_input", toggle_input);
         if( toggle_input ) {
             is_input_active = !is_input_active;
@@ -69,12 +69,15 @@ public class Shooter {
         if( toggle_output ) {
             is_output_active = !is_output_active;
         }
-        
+
         if( is_output_active ) {
             // current_output_speed = Config.smoothAtEnd(current_output_speed, output_power);
             current_output_speed = output_power;
         }
         else {
+            current_output_speed = 0;
+        }
+        if( !can_shoot ) {
             current_output_speed = 0;
         }
         setOutputMotors( -current_output_speed );
@@ -89,6 +92,10 @@ public class Shooter {
             }
         }
         else {
+            current_input_speed = 0;
+        }
+        
+        if( !can_shoot ) {
             current_input_speed = 0;
         }
         input_motor.setSpeed( current_input_speed );
