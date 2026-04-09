@@ -17,11 +17,11 @@
     "type": "attached",
     "id": 6,
     "canbus": null
-  },
+  },  
   "inverted": {
     "drive": false,
     "angle": false
   },
-  "absoluteEncoderOffset": 0.486,
+  "absoluteEncoderOffset": 0.5,
   "absoluteEncoderInverted": true
 }
