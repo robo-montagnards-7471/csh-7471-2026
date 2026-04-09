@@ -14,7 +14,7 @@ public class Config {
     public static double in = 0.375;
     public static double out = -0.375;
     public static double in_position = 0;
-    public static double out_position = 15;
+    public static double out_position = 14;
     public static double remote_speed = 0.2;
     public static boolean intake_deployed_at_start = false;
     public static double remote_stop_threshold = 0.1; // if the remote position changes less than this value, we consider it stopped
