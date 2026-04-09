@@ -11,7 +11,7 @@
             "title": "FMS Info",
             "x": 0.0,
             "y": 0.0,
-            "width": 384.0,
+            "width": 640.0,
             "height": 128.0,
             "type": "FMSInfo",
             "properties": {
@@ -23,8 +23,8 @@
             "title": "swerve",
             "x": 0.0,
             "y": 128.0,
-            "width": 384.0,
-            "height": 384.0,
+            "width": 256.0,
+            "height": 256.0,
             "type": "YAGSL Swerve Drive",
             "properties": {
               "topic": "/SmartDashboard/swerve",
@@ -286,10 +286,10 @@
           },
           {
             "title": "Stop Chain",
-            "x": 1152.0,
-            "y": 384.0,
-            "width": 256.0,
-            "height": 256.0,
+            "x": 1664.0,
+            "y": 256.0,
+            "width": 128.0,
+            "height": 128.0,
             "type": "Toggle Button",
             "properties": {
               "topic": "/SmartDashboard/Stop Chain",
@@ -312,6 +312,32 @@
               "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "photonvision_Port_1181_Input_MJPEG_Server",
+            "x": 0.0,
+            "y": 384.0,
+            "width": 640.0,
+            "height": 512.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/photonvision_Port_1181_Input_MJPEG_Server",
+              "period": 0.06,
+              "rotation_turns": 0
+            }
+          },
+          {
+            "title": "photonvision_Port_1183_Input_MJPEG_Server",
+            "x": 640.0,
+            "y": 384.0,
+            "width": 384.0,
+            "height": 512.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/photonvision_Port_1183_Input_MJPEG_Server",
+              "period": 0.06,
+              "rotation_turns": 0
             }
           }
         ]

@@ -127,9 +127,9 @@ public class Intake {
 
         double current_remote_position = remote_encoder.getPosition();
 
-        if( Math.abs( last_remote_position - current_remote_position ) < Config.remote_stop_threshold ) {
-            is_moving = false;
-        }
+        // if( Math.abs( last_remote_position - current_remote_position ) < Config.remote_stop_threshold ) {
+        //     is_moving = false;
+        // }
 
         if( is_moving )
         {
@@ -161,8 +161,8 @@ public class Intake {
         last_remote_position = current_remote_position;
         SmartDashboard.putNumber("Remote Position", current_remote_position);
 
-        SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch_state);
-        SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch_state);
+        SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch.get());
+        SmartDashboard.putBoolean("Limit Switch Outside", out_limit_switch.get());
         SmartDashboard.putBoolean("Can chain move", is_moving);
     }
 
