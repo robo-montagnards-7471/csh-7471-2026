@@ -50,18 +50,16 @@ public class Shooter {
 
     private void setOutputMotors( double destination ) {
         destination *= 1;
-        double leader_speed = output_encoder_leader.getVelocity();
-        output_motor_leader.set( safeAcceleration( leader_speed, destination ) );
-        SmartDashboard.putNumber( "Shooter Leader", leader_speed );
+        output_motor_leader.set( destination );
+        SmartDashboard.putNumber( "Shooter Leader", destination );
 
         if( Config.has_follower ) {
-            double follower_speed = output_encoder_follower.getVelocity();
-            output_motor_follower.set( safeAcceleration( follower_speed, destination ) );
-            SmartDashboard.putNumber( "Shooter Follower", follower_speed );
+            output_motor_follower.set( destination );
+            SmartDashboard.putNumber( "Shooter Follower", destination );
         }
     }
 
-    public void poll( boolean toggle_input, boolean toggle_output, boolean can_shoot ) {
+    public void poll( boolean toggle_input, boolean toggle_output ) {
         SmartDashboard.putBoolean("toggle_input", toggle_input);
         if( toggle_input ) {
             is_input_active = !is_input_active;
@@ -77,10 +75,14 @@ public class Shooter {
         else {
             current_output_speed = 0;
         }
-        if( !can_shoot ) {
-            current_output_speed = 0;
-        }
+        // if( !can_shoot ) {
+        //     current_output_speed = 0;
+        // }
         setOutputMotors( -current_output_speed );
+
+        if( !is_output_active ) {
+            is_input_active = false;
+        }
 
         if( current_output_speed > output_power*Config.start_shooter_input_when_output_is_at ) {
             if( is_input_active ) {
@@ -95,9 +97,6 @@ public class Shooter {
             current_input_speed = 0;
         }
         
-        if( !can_shoot ) {
-            current_input_speed = 0;
-        }
         input_motor.setSpeed( current_input_speed );
 
         SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );
@@ -109,8 +108,7 @@ public class Shooter {
     //     input_motor.setSpeed( -input_power );
     // }
 
-    private double safeAcceleration( double current_speed, double target_speed ) {
-        return target_speed;
+    // private double safeAcceleration( double current_speed, double target_speed ) {
         // target_speed = target_speed/Config.max_speed;
         // current_speed = current_speed/Config.max_speed;
         // double to_return = Config.smoothAtEnd(current_speed, target_speed);
@@ -121,5 +119,5 @@ public class Shooter {
         //     to_return = 1;
         // }
         // return to_return;
-    }
+    // }
 }

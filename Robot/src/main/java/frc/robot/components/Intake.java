@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import edu.wpi.first.wpilibj.DigitalInput;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
 
@@ -63,6 +64,8 @@ public class Intake {
         SmartDashboard.putBoolean("Can chain move", is_moving);
         // Dashboard control: a button to immediately stop the intake remote chain
         SmartDashboard.putBoolean("Stop Chain", false);
+        SmartDashboard.putBoolean("The intake is deployed", false);
+        SmartDashboard.putBoolean("Intake down", false);
     }
 
     public void poll( boolean in_toggle, boolean out_toggle, boolean toggle_remote ) {
@@ -70,6 +73,10 @@ public class Intake {
         if ( SmartDashboard.getBoolean("Stop Chain", false) ) {
             stopChain();
             SmartDashboard.putBoolean("Stop Chain", false);
+        }
+        if( SmartDashboard.getBoolean("The intake is deployed", false) ) {
+            is_deployed = true;
+            SmartDashboard.putBoolean("The intake is deployed", false);
         }
 
         if( in_toggle ) {
@@ -179,12 +186,14 @@ public class Intake {
         is_moving = false;
     }
 
-    public boolean isIntakeDown() {
-        if( !is_moving ) {
-            if( target_position == Config.out_position ) {
-                return true;
-            }
-        }
-        return false;
-    }
+    // public boolean isIntakeDown() {
+        // if( !is_moving ) {
+        //     if( target_position == Config.out_position ) {
+        //         SmartDashboard.putBoolean("Intake down", true);
+        //         return true;
+        //     }
+        // }
+        // SmartDashboard.putBoolean("Intake down", false);
+        // return false;
+    // }
 }
