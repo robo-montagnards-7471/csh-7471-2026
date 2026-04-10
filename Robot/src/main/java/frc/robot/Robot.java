@@ -129,7 +129,7 @@ public class Robot extends TimedRobot
   {
     intake.resetRemoteEncoder();
     intake.poll(false, false, true);
-    shooter.poll(Config.shooter_input_start_state, Config.shooter_output_start_state);
+    shooter.poll(Config.shooter_input_start_state, Config.shooter_output_start_state, 1);
     m_robotContainer.setMotorBrake(true);
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -150,7 +150,7 @@ public class Robot extends TimedRobot
   public void autonomousPeriodic()
   {
     intake.poll(false, false, false);
-    shooter.poll(false, false);
+    shooter.poll(false, false, 1);
   }
 
   @Override
@@ -192,7 +192,7 @@ public class Robot extends TimedRobot
     boolean toggle_shooter_input = controller.getShooterInputToggle();
     boolean toggle_shooter_output = controller.getShooterOutputToggle();
     SmartDashboard.putBoolean("toggle_shooter_input", toggle_shooter_input);
-    shooter.poll(toggle_shooter_input, toggle_shooter_output);
+    shooter.poll(toggle_shooter_input, toggle_shooter_output, controller.getShooterInputMultiplier());
     // shooter.reverseInput( controller.reverseShooterInput() );
   }
 

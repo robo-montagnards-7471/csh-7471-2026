@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.wpilibj.PWM;
+
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Config;
 
@@ -59,7 +60,7 @@ public class Shooter {
         }
     }
 
-    public void poll( boolean toggle_input, boolean toggle_output ) {
+    public void poll( boolean toggle_input, boolean toggle_output, double inverter ) {
         SmartDashboard.putBoolean("toggle_input", toggle_input);
         if( toggle_input ) {
             is_input_active = !is_input_active;
@@ -96,7 +97,7 @@ public class Shooter {
         else {
             current_input_speed = 0;
         }
-        
+        current_input_speed *= inverter;
         input_motor.setSpeed( current_input_speed );
 
         SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );

@@ -14,6 +14,7 @@ public class Controller {
     public Controller() {
         SmartDashboard.putBoolean( "Climp Down", xbox_controller.getLeftBumperButton());
         SmartDashboard.putBoolean( "Climp Up", xbox_controller.getRightBumperButton());
+        SmartDashboard.putBoolean( "Is input reversed", false );
         // last_right_bumper_state = xbox_controller.getRightTriggerAxis();
         // last_left_bumper_state = xbox_controller.getLeftTriggerAxis();
     }
@@ -89,6 +90,15 @@ public class Controller {
         boolean toggle = xbox_controller.getLeftBumperButtonPressed();
         SmartDashboard.putBoolean("Toggle Output", toggle);
         return toggle;
+    }
+
+    public double getShooterInputMultiplier() {
+        SmartDashboard.putBoolean( "Is input reversed", false );
+        boolean is_pressed = xbox_controller.getLeftBumperButton();
+        if( is_pressed ) {
+            return -1;
+        }
+        return 1;
     }
 
     public boolean getIntakeRemoteToggle() {
