@@ -94,7 +94,7 @@ public class Controller {
 
     public double getShooterInputMultiplier() {
         SmartDashboard.putBoolean( "Is input reversed", false );
-        boolean is_pressed = xbox_controller.getLeftBumperButton();
+        boolean is_pressed = xbox_controller.getLeftStickButton();
         if( is_pressed ) {
             return -1;
         }

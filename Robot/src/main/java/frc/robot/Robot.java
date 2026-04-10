@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 // import frc.robot.components.Climber;
 import frc.robot.components.Intake;
 import frc.robot.components.Shooter;
+import frc.robot.components.HubDistance;
 import frc.robot.Config;
 
 /**
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot
   private final Controller controller;
   private final Intake intake;
   private final Shooter shooter;
+  private final HubDistance hub_distance;
   // private final Climber climber;
 
   private static Robot   instance;
@@ -55,6 +57,7 @@ public class Robot extends TimedRobot
     controller = new Controller();
     intake = new Intake();
     shooter = new Shooter();
+    hub_distance = new HubDistance();
   }
 
   public static Robot getInstance()
@@ -92,6 +95,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
+    hub_distance.displaydistance();
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
