@@ -40,7 +40,9 @@ public class HubDistance {
         PhotonPipelineResult result = camera.getLatestResult();
         var estimated_pose = pose_estimator.estimateCoprocMultiTagPose(result);
         double distance = -1;
-        if( estimated_pose.isPresent() ) {
+        boolean is_estimation_present = estimated_pose.isPresent();
+        SmartDashboard.putBoolean("Can detect position", is_estimation_present);
+        if( is_estimation_present ) {
             EstimatedRobotPose current_pos = estimated_pose.get();
             Translation2d current_translation = current_pos.estimatedPose.toPose2d().getTranslation();
             if( DriverStation.getAlliance().get() == Alliance.Blue ) {
