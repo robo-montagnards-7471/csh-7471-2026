@@ -36,8 +36,6 @@ public class Config {
     // Intake
     public static int intake = 13;
     public static int remote = 12;
-    public static int limit_switch_in = 1;
-    public static int limit_switch_out = 0;
     // Shooter
     public static int shooter_output_leader = 14;
     public static int shooter_output_follower = 9;

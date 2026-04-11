@@ -20,15 +20,11 @@ public class Intake {
     private double target_position;
 
     private double last_remote_position;
-    private boolean in_limit_switch_state;
-    private boolean out_limit_switch_state;
 
     private SparkFlex motor;
     private SparkMax remote;
     private RelativeEncoder remote_encoder;
     private RelativeEncoder intake_encoder;
-
-    private DigitalInput in_limit_switch;
 
     public Intake() {
         is_deployed = Config.intake_deployed_at_start;
@@ -37,10 +33,6 @@ public class Intake {
         is_in = false;
         is_out = false;
         target_position = Config.in_position;
-
-        in_limit_switch = new DigitalInput( Config.limit_switch_in );
-
-        in_limit_switch_state = in_limit_switch.get();
 
         motor = new SparkFlex( Config.intake, SparkLowLevel.MotorType.kBrushless );
         remote = new SparkMax( Config.remote, SparkLowLevel.MotorType.kBrushless );
@@ -57,8 +49,6 @@ public class Intake {
         SmartDashboard.putNumber("Remote Speed", remote.get());
         SmartDashboard.putNumber("Remote Position", remote_encoder.getPosition());
         SmartDashboard.putNumber("Intake Position", intake_encoder.getPosition());
-
-        SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch.get());
         SmartDashboard.putBoolean("Can chain move", is_moving);
         // Dashboard control: a button to immediately stop the intake remote chain
         SmartDashboard.putBoolean("Stop Chain", false);
@@ -109,26 +99,19 @@ public class Intake {
         else if( !is_deployed ) {
             target_position = Config.in_position;
         }
-
-        in_limit_switch_state = false;
-        out_limit_switch_state = false;
-        if( is_moving )
-        {
-            in_limit_switch_state = in_limit_switch.get();
-        }
         
-        if( in_limit_switch_state ) {
-            remote_encoder.setPosition( Config.in_position );
-            if( target_position == Config.in_position ) {
-                is_moving = false;
-            }
-        }
-        if( out_limit_switch_state ) {
-            remote_encoder.setPosition( Config.out_position );
-            if( target_position == Config.out_position ) {
-                is_moving = false;
-            }
-        }
+        // if( in_limit_switch_state ) {
+        //     remote_encoder.setPosition( Config.in_position );
+        //     if( target_position == Config.in_position ) {
+        //         is_moving = false;
+        //     }
+        // }
+        // if( out_limit_switch_state ) {
+        //     remote_encoder.setPosition( Config.out_position );
+        //     if( target_position == Config.out_position ) {
+        //         is_moving = false;
+        //     }
+        // }
 
         double current_remote_position = remote_encoder.getPosition();
 
@@ -166,7 +149,6 @@ public class Intake {
         last_remote_position = current_remote_position;
         SmartDashboard.putNumber("Remote Position", current_remote_position);
 
-        SmartDashboard.putBoolean("Limit Switch Inside", in_limit_switch.get());
         SmartDashboard.putBoolean("Can chain move", is_moving);
     }
 
