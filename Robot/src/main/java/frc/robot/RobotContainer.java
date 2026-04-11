@@ -26,6 +26,7 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.components.Controller;
 import java.io.File;
 import swervelib.SwerveInputStream;
+import frc.robot.components.PilotModifier;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -37,6 +38,7 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final Controller controller = new Controller();
+  final PilotModifier pilot_modifier = new PilotModifier();
   final         CommandXboxController driverXbox = controller.getCommandController();
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -49,9 +51,9 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * -1,
-                                                                () -> driverXbox.getLeftX() * -1)
-                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() *-1)
+                                                                () -> driverXbox.getLeftY() * -1*pilot_modifier.getCurrentModifier(),
+                                                                () -> driverXbox.getLeftX() * -1*pilot_modifier.getCurrentModifier())
+                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() *-1*pilot_modifier.getCurrentModifier())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);

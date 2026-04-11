@@ -1,9 +1,14 @@
 package frc.robot;
 
+
 public class Config {
     // Controller settings
     public static int controller_port = 0;
     public static double bumper_sensitivity = 0.5; // 0 is not pressed and 1 is fully pressed
+    // Pilot modifiers
+    public static double william_modifier = 1; // 100 of input is considered
+    public static double vincent_modifier = 0.6; // 60% of input is considered
+    public static double other_modifier = 0.70; // 70% of input is considered
 
     // Motors configuration
     private static double custom_divider = 15; // J'ai pas de nom pour ce truc, c'est pour remplacer les PIDs tout en restant smooth, utilisé pour l'intake pour le remote
