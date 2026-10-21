@@ -1,13 +1,15 @@
 package frc.robot.components;
 
 import com.revrobotics.spark.SparkMax;
-
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.wpilibj.PWM;
 
 import com.revrobotics.RelativeEncoder;
+import com.ctre.phoenix6.StatusSignal;
+
 import frc.robot.Config;
 
 
@@ -17,12 +19,13 @@ public class Shooter {
     private boolean is_output_active;
     private boolean is_input_active;
 
+    private SparkMax input_motor;
+    private RelativeEncoder input_encoder;
+
     private SparkMax output_motor_leader;
-    private SparkMax output_motor_follower;
-    private PWM input_motor;
+    private TalonFX output_motor_follower;
 
     private RelativeEncoder output_encoder_leader;
-    private RelativeEncoder output_encoder_follower;
 
     private double output_power = Config.shooter_output_power;
     private double input_power = Config.shooter_input_power;
@@ -40,13 +43,13 @@ public class Shooter {
         SmartDashboard.putNumber( "Shooter Leader", output_encoder_leader.getVelocity() );
 
         if( Config.has_follower ) {
-            output_motor_follower = new SparkMax( Config.shooter_output_follower, SparkLowLevel.MotorType.kBrushless );
-            output_encoder_follower = output_motor_follower.getEncoder();
-            SmartDashboard.putNumber( "Shooter Follower", output_encoder_follower.getVelocity() );
+            output_motor_follower = new TalonFX( Config.shooter_output_follower );
         }
+        
+        input_motor = new SparkMax( Config.shooter_input, SparkLowLevel.MotorType.kBrushless );
+        input_encoder = input_motor.getEncoder();
 
-        input_motor = new PWM( Config.shooter_input );
-        SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );
+        SmartDashboard.putNumber( "Shooter Input", input_encoder.getVelocity() );
     }
 
     private void setOutputMotors( double destination ) {
@@ -98,9 +101,9 @@ public class Shooter {
             current_input_speed = 0;
         }
         current_input_speed *= inverter;
-        input_motor.setSpeed( current_input_speed );
+        input_motor.set( current_input_speed );
 
-        SmartDashboard.putNumber( "Shooter Input", input_motor.getSpeed() );
+        SmartDashboard.putNumber( "Shooter Input", input_encoder.getVelocity() );
         SmartDashboard.putBoolean( "Shooter Input State", is_input_active );
     }
 

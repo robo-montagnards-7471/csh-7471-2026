@@ -14,8 +14,8 @@ public class Config {
     public static double climb_up = 1;
     public static double climb_down = -1;
     // Intake
-    public static double in = 0.60;
-    public static double out = -0.60;
+    public static double in = 0.40;
+    public static double out = -0.40;
     public static double in_position = 0;
     public static double out_position = 14;
     public static double remote_speed = 0.2;
